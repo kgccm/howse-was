@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.kjh.boardback.entity.UserEntity;
 import com.kjh.boardback.provider.JwtProvider;
+import com.kjh.boardback.repository.UserRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
     @Override
@@ -39,12 +42,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            String email = jwtProvider.validate(token);
+            String userId = jwtProvider.validate(token);
 
-            if (email == null) {
+            if (userId == null) {
                 filterChain.doFilter(request, response);
                 return;
             }
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
 
             AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, null,
                     AuthorityUtils.NO_AUTHORITIES);
