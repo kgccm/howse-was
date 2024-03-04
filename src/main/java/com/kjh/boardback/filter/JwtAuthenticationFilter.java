@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.kjh.boardback.entity.UserEntity;
 import com.kjh.boardback.provider.JwtProvider;
 import com.kjh.boardback.repository.UserRepository;
 
@@ -42,23 +41,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            String userId = jwtProvider.validate(token);
+            String email = jwtProvider.validate(token);
 
-            if (userId == null) {
+            if (email == null) {
                 filterChain.doFilter(request, response);
                 return;
             }
 
-            UserEntity userEntity = userRepository.findByUserId(userId);
+            // UserEntity userEntity = userRepository.findByEmail(email);
+            // String role = userEntity.getRole(); // role: ROLE_USER, ROLE_ADMIN
 
-            AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, null,
-                    AuthorityUtils.NO_AUTHORITIES);
+            AbstractAuthenticationToken authenticationToken = 
+                new UsernamePasswordAuthenticationToken(email, null, AuthorityUtils.NO_AUTHORITIES);
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
             securityContext.setAuthentication(authenticationToken);
 
             SecurityContextHolder.setContext(securityContext);
+            
         } catch (Exception exception) {
             exception.printStackTrace();
         }

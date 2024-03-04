@@ -14,7 +14,6 @@ import com.kjh.boardback.entity.UserEntity;
 import com.kjh.boardback.provider.JwtProvider;
 import com.kjh.boardback.repository.UserRepository;
 import com.kjh.boardback.service.AuthService;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
 
 import lombok.RequiredArgsConstructor;
 
