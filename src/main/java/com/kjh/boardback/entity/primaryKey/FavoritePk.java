@@ -1,6 +1,6 @@
 package com.kjh.boardback.entity.primaryKey;
 
-import com.fasterxml.jackson.core.SerializableString;
+import java.io.Serializable;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
 
 import jakarta.persistence.Column;

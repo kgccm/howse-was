@@ -14,7 +14,6 @@ import com.kjh.boardback.entity.UserEntity;
 import com.kjh.boardback.provider.JwtProvider;
 import com.kjh.boardback.repository.UserRepository;
 import com.kjh.boardback.service.AuthService;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -30,7 +29,6 @@ public class AuthServiceImplement implements AuthService {
     public ResponseEntity<? super SignUpResponseDto> signUp(SignUpRequestDto dto) {
 
         try {
-
             String email = dto.getEmail();
             boolean existedEmail = userRepository.existsByEmail(email);
             if(existedEmail) return SignUpResponseDto.duplicateEmail();
