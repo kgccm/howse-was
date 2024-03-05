@@ -1,6 +1,5 @@
 package com.kjh.boardback.dto.request.auth;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
 
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;

@@ -1,4 +1,7 @@
 package com.kjh.boardback.service.implement;
+import org.springframework.stereotype.Service;
+import com.kjh.boardback.service.FileService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.UUID;
@@ -6,10 +9,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.kjh.boardback.service.FileService;
+
 
 @Service
 public class FileServiceImplement implements FileService {
@@ -19,11 +20,10 @@ public class FileServiceImplement implements FileService {
     @Value("${file.url}")
     private String fileUrl;
 
-
     @Override
-    public String uploda(MultipartFile file) {
-       
-        if(file.isEmpty()) return null;
+    public String upload(MultipartFile file) {
+        
+        if (file.isEmpty()) return null;
 
         String originalFileName = file.getOriginalFilename();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
@@ -46,16 +46,16 @@ public class FileServiceImplement implements FileService {
     public Resource getImage(String fileName) {
        
         Resource resource = null;
-
+        
         try {
             resource = new UrlResource("file:" + filePath + fileName);
-            
-            
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;
         }
 
         return resource;
-    }    
+    }
+
+
 }

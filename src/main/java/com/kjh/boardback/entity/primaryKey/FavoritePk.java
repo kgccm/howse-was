@@ -1,7 +1,6 @@
 package com.kjh.boardback.entity.primaryKey;
 
 import java.io.Serializable;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
 
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;

@@ -9,6 +9,6 @@ import com.kjh.boardback.dto.response.auth.SignUpResponseDto;
 
 public interface AuthService {
     
-    ResponseEntity <? super SignUpResponseDto> signUp(SignUpRequestDto dto);
-    ResponseEntity <? super SignInResponseDto> signIn(SignInRequestDto dto);
+    ResponseEntity<? super SignUpResponseDto> signUp(SignUpRequestDto dto);
+    ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto);
 }

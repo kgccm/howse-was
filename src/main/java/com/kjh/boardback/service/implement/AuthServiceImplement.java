@@ -66,12 +66,12 @@ public class AuthServiceImplement implements AuthService {
 
              String email = dto.getEmail();
              UserEntity userEntity = userRepository.findByEmail();
-             if (userEntity == null) return SignInResponseDto.signInFailed();
+             if (userEntity == null) return SignInResponseDto.signInFail();
 
              String password = dto.getPassword();
              String encodedPassword = userEntity.getPassword();
              boolean isMatched = passwordEncoder.matches(password, encodedPassword);
-             if(!isMatched) return SignInResponseDto.signInFailed();
+             if(!isMatched) return SignInResponseDto.signInFail();
 
              token = jwtProvider.create(email);
              
@@ -80,6 +80,7 @@ public class AuthServiceImplement implements AuthService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+        return SignInResponseDto.success(token);
 
     }
 
