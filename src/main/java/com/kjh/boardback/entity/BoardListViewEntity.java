@@ -16,6 +16,7 @@ public class BoardListViewEntity {
     
     @Id
     private int boardNumber;
+    
     private String title;
     private String content;
     private String titleImage;

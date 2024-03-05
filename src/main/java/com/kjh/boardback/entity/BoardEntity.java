@@ -21,6 +21,8 @@ public class BoardEntity {
 
     private String title;
 
+    private String content;
+
     private String writeDatetime;
     
     private int favoriteCount;
