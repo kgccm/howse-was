@@ -1,5 +1,6 @@
 package com.kjh.boardback.entity;
 
+import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +10,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +23,6 @@ import lombok.NoArgsConstructor;
 public class CommentEntity {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     private int commentNumber;
 
     private String content;
@@ -25,4 +30,14 @@ public class CommentEntity {
     private String userEmail;
     private int boardNumber;
 
+    public CommentEntity(Integer boardNumber, String email, PostCommentRequestDto dto) {
+        Date date = Date.from(Instant.now());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String writeDatetime = dateFormat.format(date);
+
+        this.boardNumber =boardNumber;
+        this.userEmail = email;
+        this.content = dto.getContent();
+        this.writeDatetime =writeDatetime;
+    }
 }
