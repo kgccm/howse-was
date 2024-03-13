@@ -1,6 +1,5 @@
 package com.kjh.boardback.service.implement;
 
-import com.kjh.boardback.dto.object.CommentListItem;
 import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.response.ResponseDto;
@@ -32,18 +31,60 @@ public class BoardServiceImplement implements BoardService {
     private final CommentRepository commentRepository;
 
     @Override
+    public ResponseEntity<? super DeleteBoardResponseDto> DeleteBoard(Integer boardNumber, String email) {
+        try {
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return DeleteBoardResponseDto.noExistBoard();
+
+            boolean existedEmail = userRepository.existsByEmail(email);
+            if (!existedEmail) return DeleteBoardResponseDto.noExistUser();
+
+            String writerEmail = boardEntity.getWriterEmail();
+            boolean isWriter = writerEmail.equals(email);
+            if (!isWriter) return DeleteBoardResponseDto.noPermission();
+
+
+            imageRepository.deleteByBoardNumber(boardNumber);
+            favoriteRepository.deleteByBoardNumber(boardNumber);
+            commentRepository.deleteByBoardNumber(boardNumber);
+            boardRepository.delete(boardEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return DeleteBoardResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super IncreaseViewCountResponseDto> IncreaseViewCount(Integer boardNumber) {
+        try {
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return IncreaseViewCountResponseDto.noExistBoard();
+            boardEntity.increaseViewCount();
+            boardRepository.save(boardEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return IncreaseViewCountResponseDto.success();
+    }
+
+    @Override
     public ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber) {
 
         List<GetCommentListResultSet> resultSets = new ArrayList<>();
 
-        try{
+        try {
             Boolean existedBoard = boardRepository.existsByBoardNumber(boardNumber);
             if (!existedBoard) return GetFavoriteListResponseDto.noExistBoard();
 
             resultSets = commentRepository.getCommentList(boardNumber);
 
 
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             ResponseDto.databaseError();
         }
@@ -52,12 +93,12 @@ public class BoardServiceImplement implements BoardService {
 
     @Override
     public ResponseEntity<? super PostCommentResponseDto> postComment(Integer boardNumber, String email, PostCommentRequestDto dto) {
-        try{
+        try {
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
             if (boardEntity == null) return PostCommentResponseDto.noExistBoard();
 
             boolean existedUser = userRepository.existsByEmail(email);
-            if(!existedUser) return PostCommentResponseDto.noExistUser();
+            if (!existedUser) return PostCommentResponseDto.noExistUser();
 
             CommentEntity commentEntity = new CommentEntity(boardNumber, email, dto);
             commentRepository.save(commentEntity);
@@ -65,7 +106,7 @@ public class BoardServiceImplement implements BoardService {
             boardEntity.increaseCommentCount();
             boardRepository.save(boardEntity);
 
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             ResponseDto.databaseError();
         }
@@ -132,9 +173,6 @@ public class BoardServiceImplement implements BoardService {
 
             imageEntities = imageRepository.findByBoardNumber(boardNumber);
 
-            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
-            boardEntity.increaseViewCount();
-            boardRepository.save(boardEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();

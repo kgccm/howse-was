@@ -17,15 +17,6 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @PostMapping("")
-    public ResponseEntity<? super PostBoardResponseDto> postBoard(
-            @RequestBody @Valid PostBoardRequestDto requestBody,
-            @AuthenticationPrincipal String email
-    ) {
-        ResponseEntity<? super PostBoardResponseDto> response = boardService.postBoard(requestBody, email);
-        return response;
-    }
-
     @GetMapping("/{boardNumber}")
     public ResponseEntity<? super GetBoardResponseDto> getBoard(
             @PathVariable("boardNumber") Integer boardNumber
@@ -34,20 +25,37 @@ public class BoardController {
         return response;
     }
 
-    @PutMapping("/{boardNumber}/favorite")
-    public ResponseEntity<? super PutFavoriteResponseDto> putFavorite(
-            @PathVariable("boardNumber") Integer boardNumber,
-            @AuthenticationPrincipal String email
-    ) {
-        ResponseEntity<? super PutFavoriteResponseDto> response = boardService.putFavorite(email, boardNumber);
-        return response;
-    }
-
     @GetMapping("/{boardNumber}/favorite-list")
     public ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList(
             @PathVariable("boardNumber") Integer boardNumber
     ) {
         ResponseEntity<? super GetFavoriteListResponseDto> response = boardService.getFavoriteList(boardNumber);
+        return response;
+    }
+
+
+    @GetMapping("/{boardNumber}/comment-list")
+    public ResponseEntity<? super GetCommentListResponseDto> getCommentList(
+            @PathVariable("boardNumber") Integer boardNumber
+    ) {
+        ResponseEntity<? super GetCommentListResponseDto> response = boardService.getCommentList(boardNumber);
+        return response;
+    }
+
+    @GetMapping("/{boardNumber}/increase-view-count")
+    public ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(
+            @PathVariable("boardNumber") Integer boardNumber
+    ) {
+        ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.IncreaseViewCount(boardNumber);
+        return response;
+    }
+
+    @PostMapping("")
+    public ResponseEntity<? super PostBoardResponseDto> postBoard(
+            @RequestBody @Valid PostBoardRequestDto requestBody,
+            @AuthenticationPrincipal String email
+    ) {
+        ResponseEntity<? super PostBoardResponseDto> response = boardService.postBoard(requestBody, email);
         return response;
     }
 
@@ -61,12 +69,24 @@ public class BoardController {
         return response;
     }
 
-    @GetMapping("/{boardNumber}/comment-list")
-    public ResponseEntity<? super GetCommentListResponseDto> getCommentList(
-            @PathVariable("boardNumber") Integer boardNumber
+
+    @PutMapping("/{boardNumber}/favorite")
+    public ResponseEntity<? super PutFavoriteResponseDto> putFavorite(
+            @PathVariable("boardNumber") Integer boardNumber,
+            @AuthenticationPrincipal String email
     ) {
-        ResponseEntity<? super GetCommentListResponseDto> response = boardService.getCommentList(boardNumber);
+        ResponseEntity<? super PutFavoriteResponseDto> response = boardService.putFavorite(email, boardNumber);
         return response;
     }
+
+    @DeleteMapping("/{boardNumber}")
+    public ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(
+            @PathVariable("boardNumber") Integer boardNumber,
+            @AuthenticationPrincipal String email
+    ){
+        ResponseEntity<? super DeleteBoardResponseDto> response = boardService.DeleteBoard(boardNumber, email);
+        return response;
+    }
+
 
 }
