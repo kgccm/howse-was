@@ -28,4 +28,7 @@ public class BoardListViewEntity {
     private String writerNickname;
     private String writerProfileImage;
 
+
+
+
 }

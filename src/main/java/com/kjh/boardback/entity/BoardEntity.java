@@ -1,5 +1,6 @@
 package com.kjh.boardback.entity;
 
+import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,6 +39,19 @@ public class BoardEntity {
 
     private String writerEmail;
 
+
+
+    public void increaseViewCount(){
+        this.viewCount++;
+    }
+
+    public void increaseCommentCount(){
+        this.commentCount++;
+    }
+
+    public void increaseFavoriteCount(){this.favoriteCount++;}
+    public void decreaseFavoriteCount(){this.favoriteCount--;}
+
     public BoardEntity(PostBoardRequestDto dto,String email) {
 
         Date now = Date.from(Instant.now());
@@ -53,15 +67,9 @@ public class BoardEntity {
         this.writerEmail = email;
     }
 
-    public void increaseViewCount(){
-        this.viewCount++;
+    public void patchBoard(PatchBoardRequestDto dto){
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
     }
-
-    public void increaseCommentCount(){
-        this.commentCount++;
-    }
-
-    public void increaseFavoriteCount(){this.favoriteCount++;}
-    public void decreaseFavoriteCount(){this.favoriteCount--;}
 
 }

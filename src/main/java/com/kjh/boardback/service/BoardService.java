@@ -1,5 +1,6 @@
 package com.kjh.boardback.service;
 
+import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.response.board.*;
@@ -16,7 +17,12 @@ public interface BoardService {
     ResponseEntity<? super PostCommentResponseDto> postComment(Integer boardNumber, String email, PostCommentRequestDto dto);
     ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber);
 
-    ResponseEntity<? super IncreaseViewCountResponseDto> IncreaseViewCount(Integer boardNumber);
+    ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
 
-    ResponseEntity<? super DeleteBoardResponseDto> DeleteBoard(Integer boardNumber,String email);
+    ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber,String email);
+
+    ResponseEntity<? super PatchBoardResponseDto> patchBoard(PatchBoardRequestDto dto, Integer boardNumber, String email);
+
+    ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList();
+    ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList();
 }

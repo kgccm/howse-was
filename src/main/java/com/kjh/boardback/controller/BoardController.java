@@ -1,5 +1,6 @@
 package com.kjh.boardback.controller;
 
+import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.response.board.*;
@@ -46,7 +47,19 @@ public class BoardController {
     public ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(
             @PathVariable("boardNumber") Integer boardNumber
     ) {
-        ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.IncreaseViewCount(boardNumber);
+        ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.increaseViewCount(boardNumber);
+        return response;
+    }
+
+    @GetMapping("/latest-list")
+    public ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList(){
+        ResponseEntity<? super GetLatestBoardListResponseDto> response = boardService.getLatestBoardList();
+        return response;
+    }
+
+    @GetMapping("/top-3")
+    public ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList(){
+        ResponseEntity<? super GetTop3BoardListResponseDto> response = boardService.getTop3BoardList();
         return response;
     }
 
@@ -79,12 +92,22 @@ public class BoardController {
         return response;
     }
 
+    @PatchMapping("/{boardNumber}")
+    public ResponseEntity<? super PatchBoardResponseDto> patchBoard(
+            @PathVariable("boardNumber") Integer boardNumber,
+            @AuthenticationPrincipal String email,
+            @RequestBody @Valid PatchBoardRequestDto requestBody
+            ){
+        ResponseEntity<? super PatchBoardResponseDto> response = boardService.patchBoard(requestBody, boardNumber, email);
+        return response;
+    }
+
     @DeleteMapping("/{boardNumber}")
     public ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(
             @PathVariable("boardNumber") Integer boardNumber,
             @AuthenticationPrincipal String email
     ){
-        ResponseEntity<? super DeleteBoardResponseDto> response = boardService.DeleteBoard(boardNumber, email);
+        ResponseEntity<? super DeleteBoardResponseDto> response = boardService.deleteBoard(boardNumber, email);
         return response;
     }
 
