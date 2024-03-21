@@ -16,7 +16,7 @@ public interface BoardListViewRepository extends JpaRepository<BoardListViewEnti
 
     List<BoardListViewEntity> findByOrderByWriteDatetimeDesc();
 
-    // 게시물 top3 메서드 이름 너무 김 아래 네이티브 쿼리로 구현함
+    //메서드 이름 너무 김 아래 네이티브 쿼리로 구현함
     List<BoardListViewEntity> findTop3ByWriteDatetimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDatetimeDesc(String writeDateTime);
 
     @Query(value = "SELECT * FROM board_list_view " +
@@ -25,5 +25,17 @@ public interface BoardListViewRepository extends JpaRepository<BoardListViewEnti
             "view_count DESC, write_datetime DESC " +
             "LIMIT 3", nativeQuery = true)
     List<BoardListViewEntity> getTop3BoardList(@Param("writeDateTime") String writeDateTime);
+
+
+    //메서드 이름 너무 김 아래 네이티브 쿼리로 구현함
+    List<BoardListViewEntity> findByTitleContainsOrContentContainsOrderByWriteDatetimeDesc(String title,String content);
+
+    @Query(value =
+            "SELECT * FROM board_list_view "+
+            "WHERE title LIKE %?1% OR content LIKE %?2% "+
+            "ORDER BY write_datetime DESC ",
+            nativeQuery = true
+    )
+    List<BoardListViewEntity> getSearchBoardList(String title,String content);
     
 }

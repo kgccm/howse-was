@@ -32,6 +32,30 @@ public class BoardServiceImplement implements BoardService {
     private final FavoriteRepository favoriteRepository;
     private final CommentRepository commentRepository;
     private final BoardListViewRepository boardListViewRepository;
+    private final SearchLogRepository searchLogRepository;
+
+    @Override
+    public ResponseEntity<? super GetSearchBoardListResponseDto> getSearchBoardList(String searchWord, String preSearchWord) {
+
+        List<BoardListViewEntity> boardListViewEntities = new ArrayList<>();
+
+        try{
+            boardListViewEntities = boardListViewRepository.getSearchBoardList(searchWord, searchWord);
+            SearchLogEntity searchLogEntity = new SearchLogEntity(searchWord,preSearchWord,false);
+            searchLogRepository.save(searchLogEntity);
+
+            boolean relation = preSearchWord !=null;
+            if(relation){
+                searchLogEntity = new SearchLogEntity(preSearchWord,searchWord,relation);
+                searchLogRepository.save(searchLogEntity);
+            }
+
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetSearchBoardListResponseDto.success(boardListViewEntities);
+    }
 
     @Override
     public ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList() {
