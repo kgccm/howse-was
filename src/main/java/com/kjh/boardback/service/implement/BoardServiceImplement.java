@@ -35,6 +35,25 @@ public class BoardServiceImplement implements BoardService {
     private final SearchLogRepository searchLogRepository;
 
     @Override
+    public ResponseEntity<? super GetUserBoardListResponseDto> getUserBoardList(String email) {
+
+        List<BoardListViewEntity> boardListViewEntities = new ArrayList<>();
+
+        try{
+            boolean existedEmail = userRepository.existsByEmail(email);
+            if (!existedEmail) return GetUserBoardListResponseDto.noExistUser();
+
+            boardListViewEntities = boardListViewRepository.findByWriterEmailOrderByWriteDatetimeDesc(email);
+
+
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetUserBoardListResponseDto.success(boardListViewEntities);
+    }
+
+    @Override
     public ResponseEntity<? super GetSearchBoardListResponseDto> getSearchBoardList(String searchWord, String preSearchWord) {
 
         List<BoardListViewEntity> boardListViewEntities = new ArrayList<>();

@@ -27,12 +27,12 @@ public class SignUpResponseDto  extends ResponseDto{
     }
 
     public static ResponseEntity<ResponseDto> duplicateNickname(){
-        ResponseDto result = new ResponseDto(ResponseCode.DUPLICATE_EMAIL, ResponseMessage.DUPLICATE_NICKNAME);
+        ResponseDto result = new ResponseDto(ResponseCode.DUPLICATE_NICKNAME, ResponseMessage.DUPLICATE_NICKNAME);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
     public static ResponseEntity<ResponseDto> duplicateTelNumber(){
-        ResponseDto result = new ResponseDto(ResponseCode.DUPLICATE_EMAIL, ResponseMessage.DUPLICATE_TEL_NUMBER);
+        ResponseDto result = new ResponseDto(ResponseCode.DUPLICATE_TEL_NUMBER, ResponseMessage.DUPLICATE_TEL_NUMBER);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
