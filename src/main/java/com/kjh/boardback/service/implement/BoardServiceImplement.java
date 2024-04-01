@@ -39,14 +39,14 @@ public class BoardServiceImplement implements BoardService {
 
         List<BoardListViewEntity> boardListViewEntities = new ArrayList<>();
 
-        try{
+        try {
             boolean existedEmail = userRepository.existsByEmail(email);
             if (!existedEmail) return GetUserBoardListResponseDto.noExistUser();
 
             boardListViewEntities = boardListViewRepository.findByWriterEmailOrderByWriteDatetimeDesc(email);
 
 
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
@@ -58,18 +58,18 @@ public class BoardServiceImplement implements BoardService {
 
         List<BoardListViewEntity> boardListViewEntities = new ArrayList<>();
 
-        try{
+        try {
             boardListViewEntities = boardListViewRepository.getSearchBoardList(searchWord, searchWord);
-            SearchLogEntity searchLogEntity = new SearchLogEntity(searchWord,preSearchWord,false);
+            SearchLogEntity searchLogEntity = new SearchLogEntity(searchWord, preSearchWord, false);
             searchLogRepository.save(searchLogEntity);
 
-            boolean relation = preSearchWord !=null;
-            if(relation){
-                searchLogEntity = new SearchLogEntity(preSearchWord,searchWord,relation);
+            boolean relation = preSearchWord != null;
+            if (relation) {
+                searchLogEntity = new SearchLogEntity(preSearchWord, searchWord, relation);
                 searchLogRepository.save(searchLogEntity);
             }
 
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
@@ -96,13 +96,9 @@ public class BoardServiceImplement implements BoardService {
 
     @Override
     public ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList() {
-
         List<BoardListViewEntity> boardListViewEntities = new ArrayList<>();
-
         try {
-
             boardListViewEntities = boardListViewRepository.findByOrderByWriteDatetimeDesc();
-
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
