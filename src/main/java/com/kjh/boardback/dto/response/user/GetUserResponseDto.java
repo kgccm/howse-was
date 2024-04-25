@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 public class GetUserResponseDto extends ResponseDto {
 
     private String email;
-    private String nickName;
+    private String nickname;
     private String profileImage;
 
     private GetUserResponseDto(UserEntity userEntity) {
