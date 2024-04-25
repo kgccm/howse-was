@@ -18,7 +18,7 @@ public class GetUserResponseDto extends ResponseDto {
     private GetUserResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.email = userEntity.getEmail();
-        this.nickName = userEntity.getNickname();
+        this.nickname = userEntity.getNickname();
         this.profileImage = userEntity.getProfileImage();
     }
 
