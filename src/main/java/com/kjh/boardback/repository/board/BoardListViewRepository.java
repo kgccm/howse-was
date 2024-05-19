@@ -1,6 +1,6 @@
 package com.kjh.boardback.repository.board;
 
-import com.kjh.boardback.entity.BoardListViewEntity;
+import com.kjh.boardback.entity.board.BoardListViewEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

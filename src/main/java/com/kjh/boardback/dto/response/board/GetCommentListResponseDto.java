@@ -4,7 +4,6 @@ import com.kjh.boardback.common.ResponseCode;
 import com.kjh.boardback.common.ResponseMessage;
 import com.kjh.boardback.dto.object.CommentListItem;
 import com.kjh.boardback.dto.response.ResponseDto;
-import com.kjh.boardback.entity.CommentEntity;
 import com.kjh.boardback.repository.resultSet.GetCommentListResultSet;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

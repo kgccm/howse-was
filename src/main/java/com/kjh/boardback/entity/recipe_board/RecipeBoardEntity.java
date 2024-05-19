@@ -1,7 +1,7 @@
-package com.kjh.boardback.entity;
+package com.kjh.boardback.entity.recipe_board;
 
-import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
-import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
+import com.kjh.boardback.dto.request.recipe_board.PatchRecipeBoardRequestDto;
+import com.kjh.boardback.dto.request.recipe_board.PostRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PatchTradeBoardRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeBoardRequestDto;
 import jakarta.persistence.*;
@@ -16,9 +16,9 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "trade_board")
-@Table(name = "trade_board")
-public class TradeBoardEntity {
+@Entity(name = "recipe_board")
+@Table(name = "recipe_board")
+public class RecipeBoardEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int boardNumber;
@@ -37,8 +37,6 @@ public class TradeBoardEntity {
 
     private String writerEmail;
 
-    private String tradeLocation;
-
 
     public void increaseViewCount(){
         this.viewCount++;
@@ -51,7 +49,7 @@ public class TradeBoardEntity {
     public void increaseFavoriteCount(){this.favoriteCount++;}
     public void decreaseFavoriteCount(){this.favoriteCount--;}
 
-    public TradeBoardEntity(PostTradeBoardRequestDto requestDto,String email){
+    public RecipeBoardEntity(PostRecipeBoardRequestDto requestDto, String email){
 
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -64,13 +62,13 @@ public class TradeBoardEntity {
         this.commentCount = 0;
         this.viewCount = 0;
         this.writerEmail = email;
-        this.tradeLocation = requestDto.getTradeLocation();
+
     }
 
-    public void patchBoard(PatchTradeBoardRequestDto requestDto){
+    public void patchBoard(PatchRecipeBoardRequestDto requestDto){
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
-        this.tradeLocation = requestDto.getTradeLocation();
+
     }
 
 }

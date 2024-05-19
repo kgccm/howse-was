@@ -1,6 +1,6 @@
 package com.kjh.boardback.repository.trade_board;
 
-import com.kjh.boardback.entity.TradeBoardEntity;
+import com.kjh.boardback.entity.trade_board.TradeBoardEntity;
 import com.kjh.boardback.repository.resultSet.GetTradeBoardResultSet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

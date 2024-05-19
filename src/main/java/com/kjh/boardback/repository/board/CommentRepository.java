@@ -1,13 +1,12 @@
 package com.kjh.boardback.repository.board;
 
-import com.kjh.boardback.dto.object.CommentListItem;
 import com.kjh.boardback.repository.resultSet.GetCommentListResultSet;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.kjh.boardback.entity.CommentEntity;
+import com.kjh.boardback.entity.board.CommentEntity;
 
 import java.util.List;
 

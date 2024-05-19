@@ -1,4 +1,4 @@
-package com.kjh.boardback.entity;
+package com.kjh.boardback.entity.recipe_board;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "board_list_view")
-@Table(name = "board_list_view")
-public class BoardListViewEntity {
+@Entity(name = "recipe_board_list_view")
+@Table(name = "recipe_board_list_view")
+public class RecipeBoardListViewEntity {
     
     @Id
     private int boardNumber;

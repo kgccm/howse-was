@@ -1,7 +1,7 @@
-package com.kjh.boardback.entity;
+package com.kjh.boardback.entity.board;
 
 import com.kjh.boardback.entity.primaryKey.FavoritePk;
-import com.kjh.boardback.entity.primaryKey.TradeFavoritePk;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "trade_favorite")
-@Table(name = "trade_favorite")
-@IdClass(TradeFavoritePk.class)
-public class TradeFavoriteEntity {
+@Entity(name = "favorite")
+@Table(name = "favorite")
+@IdClass(FavoritePk.class)
+public class FavoriteEntity {
     @Id
     private String userEmail;
     @Id

@@ -1,4 +1,4 @@
-package com.kjh.boardback.entity;
+package com.kjh.boardback.entity.board;
 
 import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostBoardRequestDto;

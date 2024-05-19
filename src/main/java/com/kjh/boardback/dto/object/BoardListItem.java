@@ -1,6 +1,6 @@
 package com.kjh.boardback.dto.object;
 
-import com.kjh.boardback.entity.BoardListViewEntity;
+import com.kjh.boardback.entity.board.BoardListViewEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

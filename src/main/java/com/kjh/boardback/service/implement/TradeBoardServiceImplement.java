@@ -3,11 +3,16 @@ package com.kjh.boardback.service.implement;
 import com.kjh.boardback.dto.object.TradeBoardListItem;
 import com.kjh.boardback.dto.request.trade_board.PatchTradeBoardRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeBoardRequestDto;
+import com.kjh.boardback.dto.request.trade_board.PostTradeCommentRequestDto;
+import com.kjh.boardback.dto.response.ResponseDto;
+import com.kjh.boardback.dto.response.board.PostCommentResponseDto;
 import com.kjh.boardback.dto.response.trade_board.*;
-import com.kjh.boardback.entity.TradeBoardEntity;
-import com.kjh.boardback.entity.TradeBoardListViewEntity;
-import com.kjh.boardback.entity.TradeCommentEntity;
-import com.kjh.boardback.entity.TradeImageEntity;
+import com.kjh.boardback.entity.board.BoardEntity;
+import com.kjh.boardback.entity.board.CommentEntity;
+import com.kjh.boardback.entity.trade_board.TradeBoardEntity;
+import com.kjh.boardback.entity.trade_board.TradeBoardListViewEntity;
+import com.kjh.boardback.entity.trade_board.TradeCommentEntity;
+import com.kjh.boardback.entity.trade_board.TradeImageEntity;
 import com.kjh.boardback.repository.UserRepository;
 import com.kjh.boardback.repository.resultSet.GetTradeBoardResultSet;
 import com.kjh.boardback.repository.trade_board.*;
@@ -29,6 +34,28 @@ public class TradeBoardServiceImplement implements TradeBoardService {
     private final TradeFavoriteRepository tradeFavoriteRepository;
     private final TradeBoardListViewRepository tradeBoardListViewRepository;
     private final UserRepository userRepository;
+
+    @Override
+    public ResponseEntity<? super PostTradeCommentResponseDto> postComment(Integer boardNumber, String email, PostTradeCommentRequestDto dto) {
+        try {
+            TradeBoardEntity boardEntity = tradeBoardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return PostTradeCommentResponseDto.noExistBoard();
+
+            boolean existedUser = userRepository.existsByEmail(email);
+            if (!existedUser) return PostTradeCommentResponseDto.noExistUser();
+
+            TradeCommentEntity commentEntity = new TradeCommentEntity(boardNumber, email, dto);
+            tradeCommentRepository.save(commentEntity);
+
+            boardEntity.increaseCommentCount();
+            tradeBoardRepository.save(boardEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            ResponseDto.databaseError();
+        }
+        return PostTradeCommentResponseDto.success();
+    }
 
     @Override
     public ResponseEntity<? super GetLatestTradeBoardListResponseDto> getTradeBoardList() {

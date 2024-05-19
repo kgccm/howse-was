@@ -1,4 +1,4 @@
-package com.kjh.boardback.entity;
+package com.kjh.boardback.entity.trade_board;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

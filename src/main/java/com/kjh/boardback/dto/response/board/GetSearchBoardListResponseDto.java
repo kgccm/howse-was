@@ -4,7 +4,7 @@ import com.kjh.boardback.common.ResponseCode;
 import com.kjh.boardback.common.ResponseMessage;
 import com.kjh.boardback.dto.object.BoardListItem;
 import com.kjh.boardback.dto.response.ResponseDto;
-import com.kjh.boardback.entity.BoardListViewEntity;
+import com.kjh.boardback.entity.board.BoardListViewEntity;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

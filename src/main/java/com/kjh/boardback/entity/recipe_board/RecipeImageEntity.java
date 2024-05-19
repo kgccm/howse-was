@@ -1,10 +1,6 @@
-package com.kjh.boardback.entity;
+package com.kjh.boardback.entity.recipe_board;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +8,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "image")
-@Table(name = "image")
-public class ImageEntity {
+@Entity(name = "recipe_image")
+@Table(name = "recipe_image")
+public class RecipeImageEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sequence;
@@ -22,7 +18,7 @@ public class ImageEntity {
     private String image;
 
 
-    public ImageEntity(int boardNumber, String image) {
+    public RecipeImageEntity(int boardNumber, String image) {
         this.boardNumber = boardNumber;
         this.image = image;
     }

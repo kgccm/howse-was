@@ -6,6 +6,7 @@ import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.response.ResponseDto;
 import com.kjh.boardback.dto.response.board.*;
 import com.kjh.boardback.entity.*;
+import com.kjh.boardback.entity.board.*;
 import com.kjh.boardback.repository.*;
 import com.kjh.boardback.repository.board.*;
 import com.kjh.boardback.repository.resultSet.GetBoardResultSet;

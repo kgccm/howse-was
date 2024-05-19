@@ -1,11 +1,8 @@
-package com.kjh.boardback.entity;
+package com.kjh.boardback.entity.recipe_board;
 
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.kjh.boardback.dto.request.recipe_board.PostRecipeCommentRequestDto;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +15,10 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "comment")
-@Table(name = "comment")
-public class CommentEntity {
-    
+@Entity(name = "recipe_comment")
+@Table(name = "recipe_comment")
+public class RecipeCommentEntity {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int commentNumber;
 
@@ -30,7 +27,7 @@ public class CommentEntity {
     private String userEmail;
     private int boardNumber;
 
-    public CommentEntity(Integer boardNumber, String email, PostCommentRequestDto dto) {
+    public RecipeCommentEntity(Integer boardNumber, String email, PostRecipeCommentRequestDto dto) {
         Date date = Date.from(Instant.now());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String writeDatetime = dateFormat.format(date);

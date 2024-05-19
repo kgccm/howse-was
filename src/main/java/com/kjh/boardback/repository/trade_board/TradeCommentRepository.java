@@ -1,6 +1,6 @@
 package com.kjh.boardback.repository.trade_board;
 
-import com.kjh.boardback.entity.TradeCommentEntity;
+import com.kjh.boardback.entity.trade_board.TradeCommentEntity;
 import com.kjh.boardback.repository.resultSet.GetTradeCommentListResultSet;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
