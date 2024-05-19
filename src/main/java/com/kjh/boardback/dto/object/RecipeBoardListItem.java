@@ -28,7 +28,7 @@ public class RecipeBoardListItem {
         this.boardNumber = recipeBoardListViewEntity.getBoardNumber();
         this.title = recipeBoardListViewEntity.getTitle();
         this.content = recipeBoardListViewEntity.getContent();
-        this.boardTitleImage = recipeBoardListViewEntity.getWriterProfileImage();
+        this.boardTitleImage = recipeBoardListViewEntity.getTitleImage();
         this.favoriteCount = recipeBoardListViewEntity.getFavoriteCount();
         this.commentCount = recipeBoardListViewEntity.getCommentCount();
         this.viewCount = recipeBoardListViewEntity.getViewCount();
