@@ -19,7 +19,6 @@ public interface RecipeBoardRepository extends JpaRepository<RecipeBoardEntity, 
                             "B.content AS content, " +
                             "B.write_datetime AS writeDatetime, " +
                             "B.writer_email AS writerEmail, " +
-                            "B.trade_location AS tradeLocation, " +
                             "U.nickname AS writerNickname, " +
                             "U.profile_image AS writerProfileImage " +
                             "FROM recipe_board AS B " +

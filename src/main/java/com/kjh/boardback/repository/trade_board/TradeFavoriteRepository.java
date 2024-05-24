@@ -1,5 +1,6 @@
 package com.kjh.boardback.repository.trade_board;
 
+import com.kjh.boardback.entity.primaryKey.TradeFavoritePk;
 import com.kjh.boardback.entity.trade_board.TradeFavoriteEntity;
 import com.kjh.boardback.entity.primaryKey.FavoritePk;
 import com.kjh.boardback.repository.resultSet.GetTradeFavoriteListResultSet;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TradeFavoriteRepository extends JpaRepository<TradeFavoriteEntity, FavoritePk> {
+public interface TradeFavoriteRepository extends JpaRepository<TradeFavoriteEntity, TradeFavoritePk> {
 
     TradeFavoriteEntity findByBoardNumberAndUserEmail(Integer boarNumber, String UserEmail);
 

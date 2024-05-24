@@ -1,5 +1,6 @@
 package com.kjh.boardback.repository.recipe_board;
 
+import com.kjh.boardback.entity.primaryKey.RecipeFavoritePk;
 import com.kjh.boardback.entity.recipe_board.RecipeFavoriteEntity;
 import com.kjh.boardback.entity.trade_board.TradeFavoriteEntity;
 import com.kjh.boardback.entity.primaryKey.FavoritePk;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RecipeFavoriteRepository extends JpaRepository<RecipeFavoriteEntity, FavoritePk> {
+public interface RecipeFavoriteRepository extends JpaRepository<RecipeFavoriteEntity, RecipeFavoritePk> {
 
     RecipeFavoriteEntity findByBoardNumberAndUserEmail(Integer boarNumber, String UserEmail);
 
