@@ -13,12 +13,14 @@ import java.util.List;
 @AllArgsConstructor
 
 public class CommentListItem {
+    private Integer commentNumber;
     private String nickname;
     private String profileImage;
     private String writeDatetime;
     private String content;
 
     private CommentListItem(GetCommentListResultSet resultSet){
+        this.commentNumber = resultSet.getCommentNumber();
         this.nickname = resultSet.getNickname();
         this.profileImage = resultSet.getProfileImage();
         this.writeDatetime = resultSet.getWriteDatetime();

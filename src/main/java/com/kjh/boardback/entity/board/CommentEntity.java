@@ -1,5 +1,6 @@
 package com.kjh.boardback.entity.board;
 
+import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,5 +40,9 @@ public class CommentEntity {
         this.userEmail = email;
         this.content = dto.getContent();
         this.writeDatetime =writeDatetime;
+    }
+
+    public void patchComment(PatchCommentRequestDto dto){
+        this.content = dto.getContent();
     }
 }

@@ -1,6 +1,7 @@
 package com.kjh.boardback.repository.board;
 
 import com.kjh.boardback.repository.resultSet.GetCommentListResultSet;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +19,7 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
                     "U.nickname AS nickname, "+
                     "U.profile_image AS profileImage, "+
                     "C.write_datetime AS writeDatetime, "+
+                    "C.comment_number AS commentNumber, "+
                     "C.content AS content "+
             "FROM comment AS C "+
             "INNER JOIN `user` AS U "+
@@ -30,4 +32,8 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
 
     @Transactional
     void deleteByBoardNumber(Integer boardNumber);
+
+
+    CommentEntity findByCommentNumber(Integer commentNUmber);
+
 }

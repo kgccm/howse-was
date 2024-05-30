@@ -1,6 +1,7 @@
 package com.kjh.boardback.service.implement;
 
 import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
+import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.response.ResponseDto;
@@ -35,6 +36,56 @@ public class BoardServiceImplement implements BoardService {
     private final CommentRepository commentRepository;
     private final BoardListViewRepository boardListViewRepository;
     private final SearchLogRepository searchLogRepository;
+
+    @Override
+    public ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Integer boardNumber, String email,Integer commentNumber) {
+        try {
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return DeleteCommentResponseDto.noExistBoard();
+
+            boolean existedEmail = userRepository.existsByEmail(email);
+            if (!existedEmail) return DeleteCommentResponseDto.noExistUser();
+
+            String writerEmail = boardEntity.getWriterEmail();
+            boolean isWriter = writerEmail.equals(email);
+            if (!isWriter) return DeleteCommentResponseDto.noPermission();
+
+            CommentEntity commentEntity = commentRepository.findByCommentNumber(commentNumber);
+            if (commentEntity == null) return DeleteCommentResponseDto.noExistBoard();
+            commentRepository.delete(commentEntity);
+            boardEntity.decreaseCommentCount();
+            boardRepository.save(boardEntity);
+
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return DeleteCommentResponseDto.databaseError();
+        }
+        return DeleteCommentResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PatchCommentResponseDto> patchComment(Integer boardNumber, Integer commentNumber,String email, PatchCommentRequestDto dto) {
+        try{
+            boolean existedEmail = userRepository.existsByEmail(email);
+            if(!existedEmail) return PatchCommentResponseDto.noExistUser();
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return PatchCommentResponseDto.noExistBoard();
+
+            String writerEmail = boardEntity.getWriterEmail();
+            boolean isWriter = writerEmail.equals(email);
+            if(!isWriter) return PatchCommentResponseDto.noPermission();
+
+            CommentEntity commentEntity = commentRepository.findByCommentNumber(commentNumber);
+            commentEntity.patchComment(dto);
+            commentRepository.save(commentEntity);
+
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return PatchCommentResponseDto.databaseError();
+        }
+        return PatchCommentResponseDto.success();
+    }
 
     @Override
     public ResponseEntity<? super GetUserBoardListResponseDto> getUserBoardList(String email) {

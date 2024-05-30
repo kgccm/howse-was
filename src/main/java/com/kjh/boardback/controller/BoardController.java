@@ -1,6 +1,7 @@
 package com.kjh.boardback.controller;
 
 import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
+import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.response.board.*;
@@ -9,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -119,6 +121,17 @@ public class BoardController {
         return response;
     }
 
+    @PatchMapping("{boardNumber}/{commentNumber}")
+    public ResponseEntity<? super PatchCommentResponseDto> patchComment(
+            @AuthenticationPrincipal String email,
+            @PathVariable("boardNumber") Integer boardNumber,
+            @PathVariable("commentNumber") Integer commentNumber,
+            @RequestBody @Valid PatchCommentRequestDto dto
+            ){
+        ResponseEntity<? super PatchCommentResponseDto> response = boardService.patchComment(boardNumber, commentNumber,email, dto);
+        return response;
+    }
+
     @DeleteMapping("/{boardNumber}")
     public ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(
             @PathVariable("boardNumber") Integer boardNumber,
@@ -128,5 +141,13 @@ public class BoardController {
         return response;
     }
 
-
+    @DeleteMapping("/{boardNumber}/{commentNumber}")
+    public ResponseEntity<? super DeleteCommentResponseDto> deleteComment(
+        @AuthenticationPrincipal String email,
+        @PathVariable("boardNumber") Integer boardNumber,
+        @PathVariable("commentNumber") Integer commentNumber
+    ){
+        ResponseEntity<? super DeleteCommentResponseDto> response = boardService.deleteComment(boardNumber,email,commentNumber);
+        return response;
+    }
 }
