@@ -22,4 +22,6 @@ public class PostTradeBoardRequestDto {
     private List<String> boardImageList;
 
     private String tradeLocation;
+
+    private String price;
 }

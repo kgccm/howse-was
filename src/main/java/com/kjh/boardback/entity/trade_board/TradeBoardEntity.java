@@ -39,6 +39,8 @@ public class TradeBoardEntity {
 
     private String tradeLocation;
 
+    private String price;
+
 
     public void increaseViewCount(){
         this.viewCount++;
@@ -65,12 +67,14 @@ public class TradeBoardEntity {
         this.viewCount = 0;
         this.writerEmail = email;
         this.tradeLocation = requestDto.getTradeLocation();
+        this.price = requestDto.getPrice();
     }
 
     public void patchBoard(PatchTradeBoardRequestDto requestDto){
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.tradeLocation = requestDto.getTradeLocation();
+        this.price = requestDto.getPrice();
     }
 
 }

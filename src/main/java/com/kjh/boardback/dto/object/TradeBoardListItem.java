@@ -21,6 +21,7 @@ public class TradeBoardListItem {
     private int viewCount;
     private String writeDatetime;
     private String tradeLocation;
+    private String price;
     private String writerNickname;
     private String writerProfileImage;
 
@@ -34,6 +35,7 @@ public class TradeBoardListItem {
         this.viewCount = tradeBoardListViewEntity.getViewCount();
         this.writeDatetime = tradeBoardListViewEntity.getWriteDatetime();
         this.tradeLocation = tradeBoardListViewEntity.getTradeLocation();
+        this.price = tradeBoardListViewEntity.getPrice();
         this.writerNickname = tradeBoardListViewEntity.getWriterNickname();
         this.writerProfileImage = tradeBoardListViewEntity.getWriterProfileImage();
     }

@@ -22,6 +22,7 @@ public class GetTradeBoardResponseDto extends ResponseDto {
     private final String writeDatetime;
     private final String writerEmail;
     private final String tradeLocation;
+    private final String price;
     private final String writerNickname;
     private final String writerProfileImage;
 
@@ -41,6 +42,7 @@ public class GetTradeBoardResponseDto extends ResponseDto {
         this.writeDatetime = resultSet.getWriteDatetime();
         this.writerEmail = resultSet.getWriterEmail();
         this.tradeLocation = resultSet.getTradeLocation();
+        this.price = resultSet.getPrice();
         this.writerNickname = resultSet.getWriterNickname();
         this.writerProfileImage = resultSet.getWriterProfileImage();
     }

@@ -26,6 +26,7 @@ public class TradeBoardListViewEntity {
     private String writeDatetime;
     private String writerEmail;
     private String tradeLocation;
+    private String price;
     private String writerNickname;
     private String writerProfileImage;
 

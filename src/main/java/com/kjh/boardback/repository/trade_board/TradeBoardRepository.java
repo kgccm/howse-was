@@ -18,6 +18,7 @@ public interface TradeBoardRepository extends JpaRepository<TradeBoardEntity, In
                             "B.write_datetime AS writeDatetime, " +
                             "B.writer_email AS writerEmail, " +
                             "B.trade_location AS tradeLocation, " +
+                            "B.price AS price, " +
                             "U.nickname AS writerNickname, " +
                             "U.profile_image AS writerProfileImage " +
                             "FROM trade_board AS B " +

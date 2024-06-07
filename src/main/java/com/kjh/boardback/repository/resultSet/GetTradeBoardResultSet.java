@@ -8,6 +8,8 @@ public interface GetTradeBoardResultSet {
     String getWriterEmail();
 
     String getTradeLocation();
+
+    String getPrice();
     String getWriterNickname();
     String getWriterProfileImage();
 
