@@ -46,12 +46,17 @@ public class BoardServiceImplement implements BoardService {
             boolean existedEmail = userRepository.existsByEmail(email);
             if (!existedEmail) return DeleteCommentResponseDto.noExistUser();
 
-            String writerEmail = boardEntity.getWriterEmail();
-            boolean isWriter = writerEmail.equals(email);
-            if (!isWriter) return DeleteCommentResponseDto.noPermission();
-
             CommentEntity commentEntity = commentRepository.findByCommentNumber(commentNumber);
             if (commentEntity == null) return DeleteCommentResponseDto.noExistBoard();
+
+            String writerEmail = boardEntity.getWriterEmail();
+            String commentWriterEmail = commentEntity.getUserEmail();
+            boolean isWriter = writerEmail.equals(email);
+            boolean isCommentWriter = commentWriterEmail.equals(email);
+
+            if (!isWriter && !isCommentWriter) return DeleteCommentResponseDto.noPermission();
+
+
             commentRepository.delete(commentEntity);
             boardEntity.decreaseCommentCount();
             boardRepository.save(boardEntity);
@@ -72,11 +77,14 @@ public class BoardServiceImplement implements BoardService {
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
             if (boardEntity == null) return PatchCommentResponseDto.noExistBoard();
 
-            String writerEmail = boardEntity.getWriterEmail();
-            boolean isWriter = writerEmail.equals(email);
-            if(!isWriter) return PatchCommentResponseDto.noPermission();
-
             CommentEntity commentEntity = commentRepository.findByCommentNumber(commentNumber);
+            if(commentEntity == null) return PatchCommentResponseDto.noExistBoard();
+
+            String commentWriterEmail = commentEntity.getUserEmail();
+            boolean isCommentWriter = commentWriterEmail.equals(email);
+
+            if(!isCommentWriter) return PatchCommentResponseDto.noPermission();
+
             commentEntity.patchComment(dto);
             commentRepository.save(commentEntity);
 
