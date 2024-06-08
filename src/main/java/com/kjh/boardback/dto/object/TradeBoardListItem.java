@@ -29,7 +29,7 @@ public class TradeBoardListItem {
         this.boardNumber = tradeBoardListViewEntity.getBoardNumber();
         this.title = tradeBoardListViewEntity.getTitle();
         this.content = tradeBoardListViewEntity.getContent();
-        this.boardTitleImage = tradeBoardListViewEntity.getWriterProfileImage();
+        this.boardTitleImage = tradeBoardListViewEntity.getTitleImage();
         this.favoriteCount = tradeBoardListViewEntity.getFavoriteCount();
         this.commentCount = tradeBoardListViewEntity.getCommentCount();
         this.viewCount = tradeBoardListViewEntity.getViewCount();
