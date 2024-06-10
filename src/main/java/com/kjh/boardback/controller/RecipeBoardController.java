@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/recipe")
+@RequestMapping("/api/v1/recipe/recipe-board")
 public class RecipeBoardController {
 
     private final RecipeBoardService boardService;
