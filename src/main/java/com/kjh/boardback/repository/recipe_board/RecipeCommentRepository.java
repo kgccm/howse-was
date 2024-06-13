@@ -19,7 +19,8 @@ public interface RecipeCommentRepository extends JpaRepository<RecipeCommentEnti
                     "U.nickname AS nickname, " +
                     "U.profile_image AS profileImage, " +
                     "C.write_datetime AS writeDatetime, " +
-                    "C.content AS content " +
+                    "C.content AS content, " +
+                    "C.comment_number AS commentNumber " +
                     "FROM recipe_comment AS C " +
                     "INNER JOIN `user` AS U " +
                     "ON C.user_email = U.email " +
@@ -31,4 +32,6 @@ public interface RecipeCommentRepository extends JpaRepository<RecipeCommentEnti
 
     @Transactional
     void deleteByBoardNumber(Integer boardNumber);
+
+    RecipeCommentEntity findByCommentNumber(Integer commentNumber);
 }

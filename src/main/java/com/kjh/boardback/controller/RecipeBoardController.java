@@ -1,6 +1,7 @@
 package com.kjh.boardback.controller;
 
 import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
+import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PatchRecipeBoardRequestDto;
@@ -124,12 +125,33 @@ public class RecipeBoardController {
         return response;
     }
 
+    @PatchMapping("/{boardNumber}/{commentNumber}")
+    public ResponseEntity<? super PatchRecipeCommentResponseDto> patchComment(
+            @AuthenticationPrincipal String email,
+            @RequestBody @Valid PatchCommentRequestDto dto,
+            @PathVariable Integer boardNumber,
+            @PathVariable Integer commentNumber
+            ){
+        ResponseEntity<? super PatchRecipeCommentResponseDto> response = boardService.patchComment(boardNumber, commentNumber, email, dto);
+        return response;
+    }
+
     @DeleteMapping("/{boardNumber}")
     public ResponseEntity<? super DeleteRecipeBoardResponseDto> deleteBoard(
             @PathVariable("boardNumber") Integer boardNumber,
             @AuthenticationPrincipal String email
     ){
         ResponseEntity<? super DeleteRecipeBoardResponseDto> response = boardService.deleteBoard(boardNumber, email);
+        return response;
+    }
+
+    @DeleteMapping("/{boardNumber}/{commentNumber}")
+    public ResponseEntity<? super DeleteRecipeCommentResponseDto> deleteComment(
+        @AuthenticationPrincipal String email,
+        @PathVariable("boardNumber") Integer boardNumber,
+        @PathVariable("commentNumber") Integer commentNumber
+    ){
+        ResponseEntity<? super DeleteRecipeCommentResponseDto> response = boardService.deleteComment(boardNumber, commentNumber, email);
         return response;
     }
 

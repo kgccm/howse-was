@@ -1,6 +1,7 @@
 package com.kjh.boardback.service;
 
 import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
+import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PatchRecipeBoardRequestDto;
@@ -19,11 +20,15 @@ public interface RecipeBoardService {
 
     ResponseEntity<? super PostRecipeCommentResponseDto> postComment(Integer boardNumber, String email, PostRecipeCommentRequestDto dto);
 
+    ResponseEntity<? super PatchRecipeCommentResponseDto> patchComment(Integer boardNumber, Integer commentNumber ,String email, PatchCommentRequestDto dto);
+
     ResponseEntity<? super GetRecipeCommentListResponseDto> getCommentList(Integer boardNumber);
 
     ResponseEntity<? super IncreaseRecipeViewCountResponseDto> increaseViewCount(Integer boardNumber);
 
     ResponseEntity<? super DeleteRecipeBoardResponseDto> deleteBoard(Integer boardNumber,String email);
+
+    ResponseEntity<? super DeleteRecipeCommentResponseDto> deleteComment(Integer boardNumber, Integer commentNumber ,String email);
 
     ResponseEntity<? super PatchRecipeBoardResponseDto> patchBoard(PatchRecipeBoardRequestDto dto, Integer boardNumber, String email);
 

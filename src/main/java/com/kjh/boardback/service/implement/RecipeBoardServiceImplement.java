@@ -1,12 +1,16 @@
 package com.kjh.boardback.service.implement;
 
 
+import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PatchRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeCommentRequestDto;
 import com.kjh.boardback.dto.response.ResponseDto;
+import com.kjh.boardback.dto.response.board.DeleteCommentResponseDto;
 import com.kjh.boardback.dto.response.recipe_board.*;
 import com.kjh.boardback.entity.SearchLogEntity;
+import com.kjh.boardback.entity.board.BoardEntity;
+import com.kjh.boardback.entity.board.CommentEntity;
 import com.kjh.boardback.entity.recipe_board.*;
 import com.kjh.boardback.repository.SearchLogRepository;
 import com.kjh.boardback.repository.UserRepository;
@@ -308,8 +312,65 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            ResponseDto.databaseError();
+            return ResponseDto.databaseError();
         }
         return PostRecipeCommentResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PatchRecipeCommentResponseDto> patchComment(Integer boardNumber, Integer commentNumber ,String email, PatchCommentRequestDto dto) {
+        try{
+            boolean existedEmail = userRepository.existsByEmail(email);
+            if(!existedEmail) return PatchRecipeCommentResponseDto.noExistUser();
+
+            RecipeBoardEntity boardEntity = recipeBoardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return PatchRecipeCommentResponseDto.noExistBoard();
+
+            RecipeCommentEntity commentEntity = recipeCommentRepository.findByCommentNumber(commentNumber);
+            if(commentEntity == null) return PatchRecipeCommentResponseDto.noExistBoard();
+
+            String commentWriterEmail = commentEntity.getUserEmail();
+            boolean isCommentWriter = commentWriterEmail.equals(email);
+
+            if(!isCommentWriter) return PatchRecipeCommentResponseDto.noPermission();
+
+            commentEntity.patchComment(dto);
+            recipeCommentRepository.save(commentEntity);
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return PatchRecipeCommentResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super DeleteRecipeCommentResponseDto> deleteComment(Integer boardNumber, Integer commentNumber, String email) {
+        try {
+            RecipeBoardEntity boardEntity = recipeBoardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return DeleteRecipeCommentResponseDto.noExistBoard();
+
+            boolean existedEmail = userRepository.existsByEmail(email);
+            if (!existedEmail) return DeleteRecipeCommentResponseDto.noExistUser();
+
+            RecipeCommentEntity commentEntity = recipeCommentRepository.findByCommentNumber(commentNumber);
+            if (commentEntity == null) return DeleteRecipeCommentResponseDto.noExistBoard();
+
+            String writerEmail = boardEntity.getWriterEmail();
+            String commentWriterEmail = commentEntity.getUserEmail();
+            boolean isWriter = writerEmail.equals(email);
+            boolean isCommentWriter = commentWriterEmail.equals(email);
+
+            if (!isWriter && !isCommentWriter) return DeleteRecipeCommentResponseDto.noPermission();
+
+
+            recipeCommentRepository.delete(commentEntity);
+            boardEntity.decreaseCommentCount();
+            recipeBoardRepository.save(boardEntity);
+
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return DeleteRecipeCommentResponseDto.success();
     }
 }

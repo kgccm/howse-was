@@ -38,7 +38,7 @@ public class BoardServiceImplement implements BoardService {
     private final SearchLogRepository searchLogRepository;
 
     @Override
-    public ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Integer boardNumber, String email,Integer commentNumber) {
+    public ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Integer boardNumber, String email, Integer commentNumber) {
         try {
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
             if (boardEntity == null) return DeleteCommentResponseDto.noExistBoard();

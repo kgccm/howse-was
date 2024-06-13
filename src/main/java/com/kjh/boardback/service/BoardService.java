@@ -5,10 +5,7 @@ import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.response.board.*;
-import com.kjh.boardback.entity.UserEntity;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 public interface BoardService {
     ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber);
@@ -24,7 +21,7 @@ public interface BoardService {
 
     ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber,String email);
 
-    ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Integer boardNumber,String email,Integer commentNumber);
+    ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Integer boardNumber, String email, Integer commentNumber);
 
     ResponseEntity<? super PatchBoardResponseDto> patchBoard(PatchBoardRequestDto dto, Integer boardNumber, String email);
 

@@ -1,5 +1,6 @@
 package com.kjh.boardback.entity.recipe_board;
 
+import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeCommentRequestDto;
 import jakarta.persistence.*;
@@ -36,5 +37,9 @@ public class RecipeCommentEntity {
         this.userEmail = email;
         this.content = dto.getContent();
         this.writeDatetime =writeDatetime;
+    }
+
+    public void patchComment(PatchCommentRequestDto dto){
+        this.content = dto.getContent();
     }
 }
