@@ -1,27 +1,36 @@
 package com.kjh.boardback.service.implement;
 
 import com.kjh.boardback.dto.object.TradeBoardListItem;
+import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PatchTradeBoardRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeBoardRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeCommentRequestDto;
 import com.kjh.boardback.dto.response.ResponseDto;
 import com.kjh.boardback.dto.response.board.PostCommentResponseDto;
+import com.kjh.boardback.dto.response.recipe_board.PutRecipeFavoriteResponseDto;
 import com.kjh.boardback.dto.response.trade_board.*;
+import com.kjh.boardback.entity.SearchLogEntity;
 import com.kjh.boardback.entity.board.BoardEntity;
 import com.kjh.boardback.entity.board.CommentEntity;
-import com.kjh.boardback.entity.trade_board.TradeBoardEntity;
-import com.kjh.boardback.entity.trade_board.TradeBoardListViewEntity;
-import com.kjh.boardback.entity.trade_board.TradeCommentEntity;
-import com.kjh.boardback.entity.trade_board.TradeImageEntity;
+import com.kjh.boardback.entity.recipe_board.RecipeBoardEntity;
+import com.kjh.boardback.entity.recipe_board.RecipeFavoriteEntity;
+import com.kjh.boardback.entity.trade_board.*;
+import com.kjh.boardback.repository.SearchLogRepository;
 import com.kjh.boardback.repository.UserRepository;
 import com.kjh.boardback.repository.resultSet.GetTradeBoardResultSet;
+import com.kjh.boardback.repository.resultSet.GetTradeCommentListResultSet;
+import com.kjh.boardback.repository.resultSet.GetTradeFavoriteListResultSet;
 import com.kjh.boardback.repository.trade_board.*;
 import com.kjh.boardback.service.TradeBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,6 +43,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
     private final TradeFavoriteRepository tradeFavoriteRepository;
     private final TradeBoardListViewRepository tradeBoardListViewRepository;
     private final UserRepository userRepository;
+    private final SearchLogRepository searchLogRepository;
 
     @Override
     public ResponseEntity<? super PostTradeCommentResponseDto> postComment(Integer boardNumber, String email, PostTradeCommentRequestDto dto) {
@@ -58,7 +68,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
     }
 
     @Override
-    public ResponseEntity<? super GetLatestTradeBoardListResponseDto> getTradeBoardList() {
+    public ResponseEntity<? super GetLatestTradeBoardListResponseDto> getLatestBoardList() {
 
         List<TradeBoardListItem> tradeBoardListItemList = new ArrayList<>();
 
@@ -74,7 +84,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
     }
 
     @Override
-    public ResponseEntity<? super DeleteTradeBoardResponseDto> deleteTradeBoard(String email, Integer boardNumber) {
+    public ResponseEntity<? super DeleteTradeBoardResponseDto> deleteBoard(String email, Integer boardNumber) {
         try{
             boolean existedUser = userRepository.existsByEmail(email);
             if(!existedUser) return DeleteTradeBoardResponseDto.noExistUser();
@@ -100,7 +110,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
     }
 
     @Override
-    public ResponseEntity<? super PatchTradeBoardResponseDto> patchTradeBoard(PatchTradeBoardRequestDto requestDto, String email,Integer boardNumber) {
+    public ResponseEntity<? super PatchTradeBoardResponseDto> patchBoard(PatchTradeBoardRequestDto requestDto, String email, Integer boardNumber) {
         try{
             boolean existedUser = userRepository.existsByEmail(email);
             if(!existedUser) return PatchTradeBoardResponseDto.noExistUser();
@@ -132,7 +142,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
     }
 
     @Override
-    public ResponseEntity<? super PostTradeBoardResponseDto> postTradeBoard(PostTradeBoardRequestDto requestDto, String email) {
+    public ResponseEntity<? super PostTradeBoardResponseDto> postBoard(PostTradeBoardRequestDto requestDto, String email) {
         try{
             boolean existedEmail = userRepository.existsByEmail(email);
             if(!existedEmail) return PostTradeBoardResponseDto.noExistUser();
@@ -159,7 +169,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
     }
 
     @Override
-    public ResponseEntity<? super GetTradeBoardResponseDto> getTradeBoard(Integer boardNumber) {
+    public ResponseEntity<? super GetTradeBoardResponseDto> getBoard(Integer boardNumber) {
 
         GetTradeBoardResultSet resultSet = null;
         List<TradeImageEntity> tradeImageEntities = new ArrayList<>();
@@ -176,5 +186,195 @@ public class TradeBoardServiceImplement implements TradeBoardService {
             return GetTradeBoardResponseDto.databaseError();
         }
         return GetTradeBoardResponseDto.success(resultSet,tradeImageEntities);
+    }
+    @Override
+    public ResponseEntity<? super GetTradeFavoriteListResponseDto> getFavoriteList(Integer boardNumber) {
+        List<GetTradeFavoriteListResultSet> resultSets = new ArrayList<>();
+
+        try {
+            Boolean existedBoard = tradeBoardRepository.existsByBoardNumber(boardNumber);
+            if (!existedBoard) return GetTradeFavoriteListResponseDto.noExistBoard();
+
+            resultSets = tradeFavoriteRepository.getFavoriteList(boardNumber);
+
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetTradeFavoriteListResponseDto.success(resultSets);
+    }
+
+    @Override
+    public ResponseEntity<? super GetTradeCommentListResponseDto> getCommentList(Integer boardNumber) {
+        List<GetTradeCommentListResultSet> resultSets = new ArrayList<>();
+
+        try {
+            Boolean existedBoard = tradeBoardRepository.existsByBoardNumber(boardNumber);
+            if (!existedBoard) return GetTradeCommentListResponseDto.noExistBoard();
+
+            resultSets = tradeCommentRepository.getCommentList(boardNumber);
+
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            ResponseDto.databaseError();
+        }
+        return GetTradeCommentListResponseDto.success(resultSets);
+    }
+
+    @Override
+    public ResponseEntity<? super IncreaseTradeViewCountResponseDto> increaseViewCount(Integer boardNumber) {
+        try {
+            TradeBoardEntity boardEntity = tradeBoardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return IncreaseTradeViewCountResponseDto.noExistBoard();
+            boardEntity.increaseViewCount();
+            tradeBoardRepository.save(boardEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return IncreaseTradeViewCountResponseDto.success();
+    }
+    @Override
+    public ResponseEntity<? super GetTop3TradeBoardListResponseDto> getTop3BoardList() {
+        List<TradeBoardListViewEntity> boardListViewEntities = new ArrayList<>();
+
+        try {
+            Date beforeWeek = Date.from(Instant.now().minus(7, ChronoUnit.DAYS));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String sevenDaysAgo = simpleDateFormat.format(beforeWeek);
+            boardListViewEntities = tradeBoardListViewRepository.getTop3BoardList(sevenDaysAgo);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            ResponseDto.databaseError();
+        }
+        return GetTop3TradeBoardListResponseDto.success(boardListViewEntities);
+    }
+
+    @Override
+    public ResponseEntity<? super GetSearchTradeBoardListResponseDto> getSearchBoardList(String searchWord, String preSearchWord) {
+
+        List<TradeBoardListViewEntity> boardListViewEntities = new ArrayList<>();
+
+        try {
+            boardListViewEntities = tradeBoardListViewRepository.getSearchBoardList(searchWord, searchWord);
+            SearchLogEntity searchLogEntity = new SearchLogEntity(searchWord, preSearchWord, false);
+            searchLogRepository.save(searchLogEntity);
+
+            boolean relation = preSearchWord != null;
+            if (relation) {
+                searchLogEntity = new SearchLogEntity(preSearchWord, searchWord, relation);
+                searchLogRepository.save(searchLogEntity);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetSearchTradeBoardListResponseDto.success(boardListViewEntities);
+    }
+
+    @Override
+    public ResponseEntity<? super GetUserTradeBoardListResponseDto> getUserBoardList(String email) {
+        List<TradeBoardListViewEntity> boardListViewEntities = new ArrayList<>();
+
+        try {
+            boolean existedEmail = userRepository.existsByEmail(email);
+            if (!existedEmail) return GetUserTradeBoardListResponseDto.noExistUser();
+
+            boardListViewEntities = tradeBoardListViewRepository.findByWriterEmailOrderByWriteDatetimeDesc(email);
+
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetUserTradeBoardListResponseDto.success(boardListViewEntities);
+    }
+    @Override
+    public ResponseEntity<? super PatchTradeCommentResponseDto> patchComment(Integer boardNumber, Integer commentNumber ,String email, PatchCommentRequestDto dto) {
+        try{
+            boolean existedEmail = userRepository.existsByEmail(email);
+            if(!existedEmail) return PatchTradeCommentResponseDto.noExistUser();
+
+            TradeBoardEntity boardEntity = tradeBoardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return PatchTradeCommentResponseDto.noExistBoard();
+
+            TradeCommentEntity commentEntity = tradeCommentRepository.findByCommentNumber(commentNumber);
+            if(commentEntity == null) return PatchTradeCommentResponseDto.noExistBoard();
+
+            String commentWriterEmail = commentEntity.getUserEmail();
+            boolean isCommentWriter = commentWriterEmail.equals(email);
+
+            if(!isCommentWriter) return PatchTradeCommentResponseDto.noPermission();
+
+            commentEntity.patchComment(dto);
+            tradeCommentRepository.save(commentEntity);
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return PatchTradeCommentResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super DeleteTradeCommentResponseDto> deleteComment(Integer boardNumber, Integer commentNumber, String email) {
+        try {
+            TradeBoardEntity boardEntity = tradeBoardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return DeleteTradeCommentResponseDto.noExistBoard();
+
+            boolean existedEmail = userRepository.existsByEmail(email);
+            if (!existedEmail) return DeleteTradeCommentResponseDto.noExistUser();
+
+            TradeCommentEntity commentEntity = tradeCommentRepository.findByCommentNumber(commentNumber);
+            if (commentEntity == null) return DeleteTradeCommentResponseDto.noExistBoard();
+
+            String writerEmail = boardEntity.getWriterEmail();
+            String commentWriterEmail = commentEntity.getUserEmail();
+            boolean isWriter = writerEmail.equals(email);
+            boolean isCommentWriter = commentWriterEmail.equals(email);
+
+            if (!isWriter && !isCommentWriter) return DeleteTradeCommentResponseDto.noPermission();
+
+
+            tradeCommentRepository.delete(commentEntity);
+            boardEntity.decreaseCommentCount();
+            tradeBoardRepository.save(boardEntity);
+
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return DeleteTradeCommentResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PutTradeFavoriteResponseDto> putFavorite(String email, Integer boardNumber) {
+        try {
+            boolean existedEmail = userRepository.existsByEmail(email);
+            if (!existedEmail) return PutTradeFavoriteResponseDto.noExistUser();
+
+            TradeBoardEntity boardEntity = tradeBoardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return PutTradeFavoriteResponseDto.noExistBoard();
+
+            TradeFavoriteEntity favoriteEntity = tradeFavoriteRepository.findByBoardNumberAndUserEmail(boardNumber, email);
+            if (favoriteEntity == null) {
+                favoriteEntity = new TradeFavoriteEntity(email, boardNumber);
+                tradeFavoriteRepository.save(favoriteEntity);
+                boardEntity.increaseFavoriteCount();
+            } else {
+                tradeFavoriteRepository.delete(favoriteEntity);
+                boardEntity.decreaseFavoriteCount();
+            }
+            tradeBoardRepository.save(boardEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return PutTradeFavoriteResponseDto.success();
     }
 }

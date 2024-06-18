@@ -16,6 +16,7 @@ public interface TradeCommentRepository extends JpaRepository<TradeCommentEntity
             "SELECT " +
                     "U.nickname AS nickname, " +
                     "U.profile_image AS profileImage, " +
+                    "C.comment_number AS commentNumber, " +
                     "C.write_datetime AS writeDatetime, " +
                     "C.content AS content " +
                     "FROM trade_comment AS C " +
@@ -29,4 +30,6 @@ public interface TradeCommentRepository extends JpaRepository<TradeCommentEntity
 
     @Transactional
     void deleteByBoardNumber(Integer boardNumber);
+
+    TradeCommentEntity findByCommentNumber(Integer commentNumber);
 }

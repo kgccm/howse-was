@@ -1,5 +1,6 @@
 package com.kjh.boardback.entity.trade_board;
 
+import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeCommentRequestDto;
 import jakarta.persistence.*;
@@ -36,6 +37,10 @@ public class TradeCommentEntity {
         this.userEmail = email;
         this.content = dto.getContent();
         this.writeDatetime =writeDatetime;
+    }
+
+    public void patchComment(PatchCommentRequestDto dto){
+        this.content = dto.getContent();
     }
 
 }
