@@ -2,6 +2,7 @@ package com.kjh.boardback.controller;
 
 import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PatchTradeBoardRequestDto;
+import com.kjh.boardback.dto.request.trade_board.PatchTradeCommentRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeBoardRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeCommentRequestDto;
 import com.kjh.boardback.dto.response.trade_board.*;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/trade-board")
+@RequestMapping("/api/v1/trade/trade-board")
 public class TradeBoardController {
 
     private final TradeBoardService boardService;
@@ -131,7 +132,7 @@ public class TradeBoardController {
     @PatchMapping("/{boardNumber}/{commentNumber}")
     public ResponseEntity<? super PatchTradeCommentResponseDto> patchComment(
             @AuthenticationPrincipal String email,
-            @RequestBody @Valid PatchCommentRequestDto dto,
+            @RequestBody @Valid PatchTradeCommentRequestDto dto,
             @PathVariable Integer boardNumber,
             @PathVariable Integer commentNumber
     ){

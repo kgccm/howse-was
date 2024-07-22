@@ -1,19 +1,12 @@
 package com.kjh.boardback.service.implement;
 
-import com.kjh.boardback.dto.object.TradeBoardListItem;
-import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PatchTradeBoardRequestDto;
+import com.kjh.boardback.dto.request.trade_board.PatchTradeCommentRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeBoardRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeCommentRequestDto;
 import com.kjh.boardback.dto.response.ResponseDto;
-import com.kjh.boardback.dto.response.board.PostCommentResponseDto;
-import com.kjh.boardback.dto.response.recipe_board.PutRecipeFavoriteResponseDto;
 import com.kjh.boardback.dto.response.trade_board.*;
 import com.kjh.boardback.entity.SearchLogEntity;
-import com.kjh.boardback.entity.board.BoardEntity;
-import com.kjh.boardback.entity.board.CommentEntity;
-import com.kjh.boardback.entity.recipe_board.RecipeBoardEntity;
-import com.kjh.boardback.entity.recipe_board.RecipeFavoriteEntity;
 import com.kjh.boardback.entity.trade_board.*;
 import com.kjh.boardback.repository.SearchLogRepository;
 import com.kjh.boardback.repository.UserRepository;
@@ -70,30 +63,29 @@ public class TradeBoardServiceImplement implements TradeBoardService {
     @Override
     public ResponseEntity<? super GetLatestTradeBoardListResponseDto> getLatestBoardList() {
 
-        List<TradeBoardListItem> tradeBoardListItemList = new ArrayList<>();
+        List<TradeBoardListViewEntity> tradeBoardListViewEntities = new ArrayList<>();
 
-        try{
-            List<TradeBoardListViewEntity> tradeBoardListViewEntities = tradeBoardListViewRepository.findByOrderByWriteDatetimeDesc();
-            tradeBoardListItemList=TradeBoardListItem.getList(tradeBoardListViewEntities);
+        try {
+            tradeBoardListViewEntities = tradeBoardListViewRepository.findByOrderByWriteDatetimeDesc();
 
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             return GetLatestTradeBoardListResponseDto.databaseError();
         }
-        return GetLatestTradeBoardListResponseDto.success(tradeBoardListItemList);
+        return GetLatestTradeBoardListResponseDto.success(tradeBoardListViewEntities);
     }
 
     @Override
     public ResponseEntity<? super DeleteTradeBoardResponseDto> deleteBoard(String email, Integer boardNumber) {
-        try{
+        try {
             boolean existedUser = userRepository.existsByEmail(email);
-            if(!existedUser) return DeleteTradeBoardResponseDto.noExistUser();
+            if (!existedUser) return DeleteTradeBoardResponseDto.noExistUser();
 
             TradeBoardEntity boardEntity = tradeBoardRepository.findByBoardNumber(boardNumber);
-            if (boardEntity ==null) return DeleteTradeBoardResponseDto.noExistBoard();
+            if (boardEntity == null) return DeleteTradeBoardResponseDto.noExistBoard();
 
             boolean isWriter = boardEntity.getWriterEmail().equals(email);
-            if(!isWriter) return DeleteTradeBoardResponseDto.noPermission();
+            if (!isWriter) return DeleteTradeBoardResponseDto.noPermission();
 
             tradeImageRepository.deleteByBoardNumber(boardNumber);
             tradeCommentRepository.deleteByBoardNumber(boardNumber);
@@ -101,8 +93,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
             tradeBoardRepository.delete(boardEntity);
 
 
-
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             return DeleteTradeBoardResponseDto.databaseError();
         }
@@ -111,15 +102,15 @@ public class TradeBoardServiceImplement implements TradeBoardService {
 
     @Override
     public ResponseEntity<? super PatchTradeBoardResponseDto> patchBoard(PatchTradeBoardRequestDto requestDto, String email, Integer boardNumber) {
-        try{
+        try {
             boolean existedUser = userRepository.existsByEmail(email);
-            if(!existedUser) return PatchTradeBoardResponseDto.noExistUser();
+            if (!existedUser) return PatchTradeBoardResponseDto.noExistUser();
 
             TradeBoardEntity boardEntity = tradeBoardRepository.findByBoardNumber(boardNumber);
-            if (boardEntity ==null) return PatchTradeBoardResponseDto.noExistBoard();
+            if (boardEntity == null) return PatchTradeBoardResponseDto.noExistBoard();
 
             boolean isWriter = boardEntity.getWriterEmail().equals(email);
-            if(!isWriter) return PatchTradeBoardResponseDto.noPermission();
+            if (!isWriter) return PatchTradeBoardResponseDto.noPermission();
 
             boardEntity.patchBoard(requestDto);
             tradeBoardRepository.save(boardEntity);
@@ -128,13 +119,13 @@ public class TradeBoardServiceImplement implements TradeBoardService {
             List<String> imageList = requestDto.getBoardImageList();
             List<TradeImageEntity> imageEntities = new ArrayList<>();
 
-            for(String image : imageList ){
+            for (String image : imageList) {
                 TradeImageEntity imageEntity = new TradeImageEntity(boardNumber, image);
                 imageEntities.add(imageEntity);
             }
             tradeImageRepository.saveAll(imageEntities);
 
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             return PatchTradeBoardResponseDto.databaseError();
         }
@@ -143,9 +134,9 @@ public class TradeBoardServiceImplement implements TradeBoardService {
 
     @Override
     public ResponseEntity<? super PostTradeBoardResponseDto> postBoard(PostTradeBoardRequestDto requestDto, String email) {
-        try{
+        try {
             boolean existedEmail = userRepository.existsByEmail(email);
-            if(!existedEmail) return PostTradeBoardResponseDto.noExistUser();
+            if (!existedEmail) return PostTradeBoardResponseDto.noExistUser();
 
             TradeBoardEntity tradeBoardEntity = new TradeBoardEntity(requestDto, email);
             tradeBoardRepository.save(tradeBoardEntity);
@@ -155,13 +146,13 @@ public class TradeBoardServiceImplement implements TradeBoardService {
             List<String> imageList = requestDto.getBoardImageList();
             List<TradeImageEntity> imageEntities = new ArrayList<>();
 
-            for(String image : imageList ){
+            for (String image : imageList) {
                 TradeImageEntity imageEntity = new TradeImageEntity(boardNumber, image);
                 imageEntities.add(imageEntity);
             }
             tradeImageRepository.saveAll(imageEntities);
 
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             return PostTradeBoardResponseDto.databaseError();
         }
@@ -174,19 +165,20 @@ public class TradeBoardServiceImplement implements TradeBoardService {
         GetTradeBoardResultSet resultSet = null;
         List<TradeImageEntity> tradeImageEntities = new ArrayList<>();
 
-        try{
+        try {
             resultSet = tradeBoardRepository.getTradeBoard(boardNumber);
             if (resultSet == null) return GetTradeBoardResponseDto.noExistBoard();
 
             tradeImageEntities = tradeImageRepository.findByBoardNumber(boardNumber);
 
 
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             return GetTradeBoardResponseDto.databaseError();
         }
-        return GetTradeBoardResponseDto.success(resultSet,tradeImageEntities);
+        return GetTradeBoardResponseDto.success(resultSet, tradeImageEntities);
     }
+
     @Override
     public ResponseEntity<? super GetTradeFavoriteListResponseDto> getFavoriteList(Integer boardNumber) {
         List<GetTradeFavoriteListResultSet> resultSets = new ArrayList<>();
@@ -237,6 +229,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
         }
         return IncreaseTradeViewCountResponseDto.success();
     }
+
     @Override
     public ResponseEntity<? super GetTop3TradeBoardListResponseDto> getTop3BoardList() {
         List<TradeBoardListViewEntity> boardListViewEntities = new ArrayList<>();
@@ -294,26 +287,27 @@ public class TradeBoardServiceImplement implements TradeBoardService {
         }
         return GetUserTradeBoardListResponseDto.success(boardListViewEntities);
     }
+
     @Override
-    public ResponseEntity<? super PatchTradeCommentResponseDto> patchComment(Integer boardNumber, Integer commentNumber ,String email, PatchCommentRequestDto dto) {
-        try{
+    public ResponseEntity<? super PatchTradeCommentResponseDto> patchComment(Integer boardNumber, Integer commentNumber, String email, PatchTradeCommentRequestDto dto) {
+        try {
             boolean existedEmail = userRepository.existsByEmail(email);
-            if(!existedEmail) return PatchTradeCommentResponseDto.noExistUser();
+            if (!existedEmail) return PatchTradeCommentResponseDto.noExistUser();
 
             TradeBoardEntity boardEntity = tradeBoardRepository.findByBoardNumber(boardNumber);
             if (boardEntity == null) return PatchTradeCommentResponseDto.noExistBoard();
 
             TradeCommentEntity commentEntity = tradeCommentRepository.findByCommentNumber(commentNumber);
-            if(commentEntity == null) return PatchTradeCommentResponseDto.noExistBoard();
+            if (commentEntity == null) return PatchTradeCommentResponseDto.noExistBoard();
 
             String commentWriterEmail = commentEntity.getUserEmail();
             boolean isCommentWriter = commentWriterEmail.equals(email);
 
-            if(!isCommentWriter) return PatchTradeCommentResponseDto.noPermission();
+            if (!isCommentWriter) return PatchTradeCommentResponseDto.noPermission();
 
             commentEntity.patchComment(dto);
             tradeCommentRepository.save(commentEntity);
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
@@ -344,7 +338,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
             boardEntity.decreaseCommentCount();
             tradeBoardRepository.save(boardEntity);
 
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }

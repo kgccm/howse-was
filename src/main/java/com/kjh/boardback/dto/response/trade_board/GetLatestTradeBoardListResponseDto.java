@@ -4,6 +4,7 @@ import com.kjh.boardback.common.ResponseCode;
 import com.kjh.boardback.common.ResponseMessage;
 import com.kjh.boardback.dto.object.TradeBoardListItem;
 import com.kjh.boardback.dto.response.ResponseDto;
+import com.kjh.boardback.entity.trade_board.TradeBoardListViewEntity;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,14 @@ import java.util.List;
 @Getter
 public class GetLatestTradeBoardListResponseDto extends ResponseDto {
 
-    private List<TradeBoardListItem> tradeBoardListItemList;
+    private final List<TradeBoardListItem> tradelatestList;
 
-    private GetLatestTradeBoardListResponseDto(List<TradeBoardListItem> tradeBoardListItems) {
+    private GetLatestTradeBoardListResponseDto(List<TradeBoardListViewEntity> tradeBoardListItems) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        tradeBoardListItemList = tradeBoardListItems;
+        this.tradelatestList = TradeBoardListItem.getList(tradeBoardListItems);
     }
 
-    public static ResponseEntity<GetLatestTradeBoardListResponseDto> success(List<TradeBoardListItem> tradeBoardListItems) {
+    public static ResponseEntity<GetLatestTradeBoardListResponseDto> success(List<TradeBoardListViewEntity> tradeBoardListItems) {
         GetLatestTradeBoardListResponseDto result = new GetLatestTradeBoardListResponseDto(tradeBoardListItems);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

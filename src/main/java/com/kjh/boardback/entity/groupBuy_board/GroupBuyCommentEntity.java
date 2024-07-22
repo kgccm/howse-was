@@ -1,9 +1,7 @@
-package com.kjh.boardback.entity.trade_board;
+package com.kjh.boardback.entity.groupBuy_board;
 
-import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
-import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
-import com.kjh.boardback.dto.request.trade_board.PatchTradeCommentRequestDto;
-import com.kjh.boardback.dto.request.trade_board.PostTradeCommentRequestDto;
+import com.kjh.boardback.dto.request.groupBuy_board.PatchGroupBuyCommentRequestDto;
+import com.kjh.boardback.dto.request.groupBuy_board.PostGroupBuyCommentRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,10 +15,10 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "trade_comment")
-@Table(name = "trade_comment")
-public class TradeCommentEntity {
-
+@Entity(name = "groupbuy_comment")
+@Table(name = "groupbuy_comment")
+public class GroupBuyCommentEntity {
+    
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int commentNumber;
 
@@ -29,7 +27,7 @@ public class TradeCommentEntity {
     private String userEmail;
     private int boardNumber;
 
-    public TradeCommentEntity(Integer boardNumber, String email, PostTradeCommentRequestDto dto) {
+    public GroupBuyCommentEntity(Integer boardNumber, String email, PostGroupBuyCommentRequestDto dto) {
         Date date = Date.from(Instant.now());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String writeDatetime = dateFormat.format(date);
@@ -40,8 +38,7 @@ public class TradeCommentEntity {
         this.writeDatetime =writeDatetime;
     }
 
-    public void patchComment(PatchTradeCommentRequestDto dto){
+    public void patchComment(PatchGroupBuyCommentRequestDto dto){
         this.content = dto.getContent();
     }
-
 }

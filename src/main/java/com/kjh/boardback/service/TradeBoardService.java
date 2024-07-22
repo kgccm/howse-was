@@ -2,6 +2,7 @@ package com.kjh.boardback.service;
 
 import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PatchTradeBoardRequestDto;
+import com.kjh.boardback.dto.request.trade_board.PatchTradeCommentRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeBoardRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeCommentRequestDto;
 import com.kjh.boardback.dto.response.trade_board.*;
@@ -18,7 +19,7 @@ public interface TradeBoardService {
 
     ResponseEntity<? super PutTradeFavoriteResponseDto> putFavorite(String email, Integer boardNumber);
     ResponseEntity<? super GetTradeFavoriteListResponseDto> getFavoriteList(Integer boardNumber);
-    ResponseEntity<? super PatchTradeCommentResponseDto> patchComment(Integer boardNumber, Integer commentNumber , String email, PatchCommentRequestDto dto);
+    ResponseEntity<? super PatchTradeCommentResponseDto> patchComment(Integer boardNumber, Integer commentNumber , String email, PatchTradeCommentRequestDto dto);
 
     ResponseEntity<? super GetTradeCommentListResponseDto> getCommentList(Integer boardNumber);
 

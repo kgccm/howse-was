@@ -41,11 +41,11 @@ public class TradeBoardListItem {
     }
 
     public static List<TradeBoardListItem> getList(List<TradeBoardListViewEntity>tradeBoardListViewEntities ){
-        List<TradeBoardListItem> tradeBoardListItemList = new ArrayList<>();
+        List<TradeBoardListItem> tradeBoardListItems = new ArrayList<>();
         for(TradeBoardListViewEntity tradeBoardListViewEntity : tradeBoardListViewEntities){
             TradeBoardListItem tradeBoardListItem = new TradeBoardListItem(tradeBoardListViewEntity);
-            tradeBoardListItemList.add(tradeBoardListItem);
+            tradeBoardListItems.add(tradeBoardListItem);
         }
-        return tradeBoardListItemList;
+        return tradeBoardListItems;
     }
 }
