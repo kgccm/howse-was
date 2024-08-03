@@ -6,8 +6,8 @@ public interface GetRecipeBoardResultSet {
     String getContent();
     String getWriteDatetime();
     String getWriterEmail();
-
     String getWriterNickname();
     String getWriterProfileImage();
+    Integer getType();
 
 }

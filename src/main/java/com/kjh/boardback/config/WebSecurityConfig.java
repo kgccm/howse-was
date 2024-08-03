@@ -46,7 +46,7 @@ public class WebSecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/board/**", "/api/v1/user/*","/api/v1/trade/**","/api/v1/recipe/**","/ws/**","api/v1/groupBuy/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/community/**", "/api/v1/user/*","/api/v1/trade/**","/api/v1/recipe/**","/ws/**").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandle -> exceptionHandle
                         .authenticationEntryPoint(new FailedAuthenticationEntryPoint()))

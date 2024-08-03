@@ -27,7 +27,7 @@ public class RecipeBoardListViewEntity {
     private String writerEmail;
     private String writerNickname;
     private String writerProfileImage;
-
+    private int type;
 
 
 

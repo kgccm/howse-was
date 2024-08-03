@@ -133,8 +133,8 @@ public class TradeBoardController {
     public ResponseEntity<? super PatchTradeCommentResponseDto> patchComment(
             @AuthenticationPrincipal String email,
             @RequestBody @Valid PatchTradeCommentRequestDto dto,
-            @PathVariable Integer boardNumber,
-            @PathVariable Integer commentNumber
+            @PathVariable("boardNumber") Integer boardNumber,
+            @PathVariable("commentNumber") Integer commentNumber
     ){
         ResponseEntity<? super PatchTradeCommentResponseDto> response = boardService.patchComment(boardNumber, commentNumber, email, dto);
         return response;

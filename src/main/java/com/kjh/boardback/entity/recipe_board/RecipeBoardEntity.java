@@ -36,6 +36,7 @@ public class RecipeBoardEntity {
     private int viewCount;
 
     private String writerEmail;
+    private int type;
 
 
     public void increaseViewCount(){
@@ -65,7 +66,7 @@ public class RecipeBoardEntity {
         this.commentCount = 0;
         this.viewCount = 0;
         this.writerEmail = email;
-
+        this.type = requestDto.getType();
     }
 
     public void patchBoard(PatchRecipeBoardRequestDto requestDto){

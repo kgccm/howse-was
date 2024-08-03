@@ -253,7 +253,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
         List<TradeBoardListViewEntity> boardListViewEntities = new ArrayList<>();
 
         try {
-            boardListViewEntities = tradeBoardListViewRepository.getSearchBoardList(searchWord, searchWord);
+            boardListViewEntities = tradeBoardListViewRepository.getSearchBoardList(searchWord, searchWord,searchWord);
             SearchLogEntity searchLogEntity = new SearchLogEntity(searchWord, preSearchWord, false);
             searchLogRepository.save(searchLogEntity);
 

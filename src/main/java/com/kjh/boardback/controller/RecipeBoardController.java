@@ -1,15 +1,10 @@
 package com.kjh.boardback.controller;
 
-import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
-import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
-import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PatchRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeCommentRequestDto;
-import com.kjh.boardback.dto.response.board.*;
 import com.kjh.boardback.dto.response.recipe_board.*;
-import com.kjh.boardback.service.BoardService;
 import com.kjh.boardback.service.RecipeBoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -57,23 +52,25 @@ public class RecipeBoardController {
         return response;
     }
 
-    @GetMapping("/latest-list")
-    public ResponseEntity<? super GetLatestRecipeBoardListResponseDto> getLatestBoardList(){
-        ResponseEntity<? super GetLatestRecipeBoardListResponseDto> response = boardService.getLatestBoardList();
+    @GetMapping("/latest-list/{type}")
+    public ResponseEntity<? super GetLatestRecipeBoardListResponseDto> getLatestBoardList(
+            @PathVariable("type") Integer type
+    ) {
+        ResponseEntity<? super GetLatestRecipeBoardListResponseDto> response = boardService.getLatestBoardList(type);
         return response;
     }
 
     @GetMapping("/top-3")
-    public ResponseEntity<? super GetTop3RecipeBoardListResponseDto> getTop3BoardList(){
+    public ResponseEntity<? super GetTop3RecipeBoardListResponseDto> getTop3BoardList() {
         ResponseEntity<? super GetTop3RecipeBoardListResponseDto> response = boardService.getTop3BoardList();
         return response;
     }
 
-    @GetMapping(value = {"/search-list/{searchWord}","/search-list/{searchWord}/{preSearchWord}"})
+    @GetMapping(value = {"/search-list/{searchWord}", "/search-list/{searchWord}/{preSearchWord}"})
     public ResponseEntity<? super GetSearchRecipeBoardListResponseDto> getSearchBoardList(
             @PathVariable("searchWord") String searchWord,
-            @PathVariable(value = "preSearchWord",required = false) String PreSearchWord
-    ){
+            @PathVariable(value = "preSearchWord", required = false) String PreSearchWord
+    ) {
         ResponseEntity<? super GetSearchRecipeBoardListResponseDto> response = boardService.getSearchBoardList(searchWord, PreSearchWord);
         return response;
     }
@@ -81,7 +78,7 @@ public class RecipeBoardController {
     @GetMapping("/user-board-list/{email}")
     public ResponseEntity<? super GetUserRecipeBoardListResponseDto> getUserBoardList(
             @PathVariable("email") String email
-    ){
+    ) {
         ResponseEntity<? super GetUserRecipeBoardListResponseDto> response = boardService.getUserBoardList(email);
         return response;
     }
@@ -120,7 +117,7 @@ public class RecipeBoardController {
             @PathVariable("boardNumber") Integer boardNumber,
             @AuthenticationPrincipal String email,
             @RequestBody @Valid PatchRecipeBoardRequestDto requestBody
-            ){
+    ) {
         ResponseEntity<? super PatchRecipeBoardResponseDto> response = boardService.patchBoard(requestBody, boardNumber, email);
         return response;
     }
@@ -129,9 +126,9 @@ public class RecipeBoardController {
     public ResponseEntity<? super PatchRecipeCommentResponseDto> patchComment(
             @AuthenticationPrincipal String email,
             @RequestBody @Valid PatchCommentRequestDto dto,
-            @PathVariable Integer boardNumber,
-            @PathVariable Integer commentNumber
-            ){
+            @PathVariable("boardNumber") Integer boardNumber,
+            @PathVariable("commentNumber") Integer commentNumber
+    ) {
         ResponseEntity<? super PatchRecipeCommentResponseDto> response = boardService.patchComment(boardNumber, commentNumber, email, dto);
         return response;
     }
@@ -140,17 +137,17 @@ public class RecipeBoardController {
     public ResponseEntity<? super DeleteRecipeBoardResponseDto> deleteBoard(
             @PathVariable("boardNumber") Integer boardNumber,
             @AuthenticationPrincipal String email
-    ){
+    ) {
         ResponseEntity<? super DeleteRecipeBoardResponseDto> response = boardService.deleteBoard(boardNumber, email);
         return response;
     }
 
     @DeleteMapping("/{boardNumber}/{commentNumber}")
     public ResponseEntity<? super DeleteRecipeCommentResponseDto> deleteComment(
-        @AuthenticationPrincipal String email,
-        @PathVariable("boardNumber") Integer boardNumber,
-        @PathVariable("commentNumber") Integer commentNumber
-    ){
+            @AuthenticationPrincipal String email,
+            @PathVariable("boardNumber") Integer boardNumber,
+            @PathVariable("commentNumber") Integer commentNumber
+    ) {
         ResponseEntity<? super DeleteRecipeCommentResponseDto> response = boardService.deleteComment(boardNumber, commentNumber, email);
         return response;
     }

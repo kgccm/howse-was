@@ -226,10 +226,10 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
     }
 
     @Override
-    public ResponseEntity<? super GetLatestRecipeBoardListResponseDto> getLatestBoardList() {
+    public ResponseEntity<? super GetLatestRecipeBoardListResponseDto> getLatestBoardList(int type) {
         List<RecipeBoardListViewEntity> boardListViewEntities = new ArrayList<>();
         try {
-            boardListViewEntities = recipeBoardListViewRepository.findByOrderByWriteDatetimeDesc();
+            boardListViewEntities = recipeBoardListViewRepository.findByOrderByWriteDatetimeDesc(type);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();

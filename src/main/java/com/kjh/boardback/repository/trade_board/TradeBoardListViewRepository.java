@@ -27,11 +27,11 @@ public interface TradeBoardListViewRepository extends JpaRepository<TradeBoardLi
     // List<TradeBoardListViewEntity> findByTitleContainsOrContentContainsOrderByWriteDatetimeDesc(String title,String content);
     @Query(value =
             "SELECT * FROM trade_board_list_view " +
-                    "WHERE title LIKE %?1% OR content LIKE %?2% " +
+                    "WHERE title LIKE %?1% OR content LIKE %?2% OR trade_location LIKE %?3% " +
                     "ORDER BY write_datetime DESC ",
             nativeQuery = true
     )
-    List<TradeBoardListViewEntity> getSearchBoardList(String title, String content);
+    List<TradeBoardListViewEntity> getSearchBoardList(String title, String content,String location);
 
     List<TradeBoardListViewEntity> findByWriterEmailOrderByWriteDatetimeDesc(String writerEmail);
 

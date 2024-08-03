@@ -32,7 +32,7 @@ public interface RecipeBoardService {
 
     ResponseEntity<? super PatchRecipeBoardResponseDto> patchBoard(PatchRecipeBoardRequestDto dto, Integer boardNumber, String email);
 
-    ResponseEntity<? super GetLatestRecipeBoardListResponseDto> getLatestBoardList();
+    ResponseEntity<? super GetLatestRecipeBoardListResponseDto> getLatestBoardList(int type);
     ResponseEntity<? super GetTop3RecipeBoardListResponseDto> getTop3BoardList();
 
     ResponseEntity<? super GetSearchRecipeBoardListResponseDto> getSearchBoardList(String searchWord,String preSearchWord);

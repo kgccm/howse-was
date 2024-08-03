@@ -14,7 +14,11 @@ import java.util.List;
 public interface RecipeBoardListViewRepository extends JpaRepository<RecipeBoardListViewEntity, Integer> {
 
 
-    List<RecipeBoardListViewEntity> findByOrderByWriteDatetimeDesc();
+    @Query(value = "SELECT * FROM recipe_board_list_view "+
+            "WHERE type = ?1 "+
+            "ORDER BY write_datetime DESC",nativeQuery = true
+    )
+    List<RecipeBoardListViewEntity> findByOrderByWriteDatetimeDesc(int type);
 
 
     // List<RecipeBoardListViewEntity> findTop3ByWriteDatetimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDatetimeDesc(String writeDateTime);
