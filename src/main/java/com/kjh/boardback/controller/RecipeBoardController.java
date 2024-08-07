@@ -4,6 +4,7 @@ import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PatchRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeCommentRequestDto;
+import com.kjh.boardback.dto.response.ResponseDto;
 import com.kjh.boardback.dto.response.recipe_board.*;
 import com.kjh.boardback.service.RecipeBoardService;
 import jakarta.validation.Valid;
@@ -60,9 +61,11 @@ public class RecipeBoardController {
         return response;
     }
 
-    @GetMapping("/top-3")
-    public ResponseEntity<? super GetTop3RecipeBoardListResponseDto> getTop3BoardList() {
-        ResponseEntity<? super GetTop3RecipeBoardListResponseDto> response = boardService.getTop3BoardList();
+    @GetMapping("/{type}/top-5")
+    public ResponseEntity<? extends ResponseDto> getTop5BoardList(
+            @PathVariable("type") Integer type
+    ) {
+        ResponseEntity<? extends ResponseDto> response = boardService.getTop5BoardList(type);
         return response;
     }
 

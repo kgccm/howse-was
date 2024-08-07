@@ -1,13 +1,10 @@
 package com.kjh.boardback.service;
 
-import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
 import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
-import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
-import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PatchRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeCommentRequestDto;
-import com.kjh.boardback.dto.response.board.*;
+import com.kjh.boardback.dto.response.ResponseDto;
 import com.kjh.boardback.dto.response.recipe_board.*;
 import org.springframework.http.ResponseEntity;
 
@@ -33,7 +30,7 @@ public interface RecipeBoardService {
     ResponseEntity<? super PatchRecipeBoardResponseDto> patchBoard(PatchRecipeBoardRequestDto dto, Integer boardNumber, String email);
 
     ResponseEntity<? super GetLatestRecipeBoardListResponseDto> getLatestBoardList(int type);
-    ResponseEntity<? super GetTop3RecipeBoardListResponseDto> getTop3BoardList();
+    ResponseEntity<? extends ResponseDto> getTop5BoardList(int type);
 
     ResponseEntity<? super GetSearchRecipeBoardListResponseDto> getSearchBoardList(String searchWord,String preSearchWord);
 

@@ -210,7 +210,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            ResponseDto.databaseError();
+            return ResponseDto.databaseError();
         }
         return GetTradeCommentListResponseDto.success(resultSets);
     }
@@ -242,7 +242,7 @@ public class TradeBoardServiceImplement implements TradeBoardService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            ResponseDto.databaseError();
+            return ResponseDto.databaseError();
         }
         return GetTop3TradeBoardListResponseDto.success(boardListViewEntities);
     }

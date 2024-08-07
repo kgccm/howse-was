@@ -1,7 +1,6 @@
 package com.kjh.boardback.repository.recipe_board;
 
 import com.kjh.boardback.entity.recipe_board.RecipeBoardListViewEntity;
-import com.kjh.boardback.entity.trade_board.TradeBoardListViewEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,11 +22,11 @@ public interface RecipeBoardListViewRepository extends JpaRepository<RecipeBoard
 
     // List<RecipeBoardListViewEntity> findTop3ByWriteDatetimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDatetimeDesc(String writeDateTime);
     @Query(value = "SELECT * FROM recipe_board_list_view " +
-            "WHERE write_datetime > ?1 " +
+            "WHERE write_datetime > ?1 AND type = ?2 " +
             "ORDER BY favorite_count DESC, comment_count DESC, " +
             "view_count DESC, write_datetime DESC " +
-            "LIMIT 3", nativeQuery = true)
-    List<RecipeBoardListViewEntity> getTop3BoardList(@Param("writeDateTime") String writeDateTime);
+            "LIMIT 5", nativeQuery = true)
+    List<RecipeBoardListViewEntity> getTop5BoardList(String writeDateTime,int type);
 
     // List<RecipeBoardListViewEntity> findByTitleContainsOrContentContainsOrderByWriteDatetimeDesc(String title,String content);
     @Query(value =

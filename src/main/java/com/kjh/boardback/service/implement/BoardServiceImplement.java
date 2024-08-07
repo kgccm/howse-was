@@ -150,7 +150,7 @@ public class BoardServiceImplement implements BoardService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            ResponseDto.databaseError();
+            return ResponseDto.databaseError();
         }
         return GetTop3BoardListResponseDto.success(boardListViewEntities);
     }
@@ -256,7 +256,7 @@ public class BoardServiceImplement implements BoardService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            ResponseDto.databaseError();
+            return ResponseDto.databaseError();
         }
         return GetCommentListResponseDto.success(resultSets);
     }
@@ -278,7 +278,7 @@ public class BoardServiceImplement implements BoardService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            ResponseDto.databaseError();
+            return ResponseDto.databaseError();
         }
         return PostCommentResponseDto.success();
     }

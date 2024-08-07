@@ -6,11 +6,8 @@ import com.kjh.boardback.dto.request.recipe_board.PatchRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeCommentRequestDto;
 import com.kjh.boardback.dto.response.ResponseDto;
-import com.kjh.boardback.dto.response.board.DeleteCommentResponseDto;
 import com.kjh.boardback.dto.response.recipe_board.*;
 import com.kjh.boardback.entity.SearchLogEntity;
-import com.kjh.boardback.entity.board.BoardEntity;
-import com.kjh.boardback.entity.board.CommentEntity;
 import com.kjh.boardback.entity.recipe_board.*;
 import com.kjh.boardback.repository.SearchLogRepository;
 import com.kjh.boardback.repository.UserRepository;
@@ -146,7 +143,7 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            ResponseDto.databaseError();
+            return ResponseDto.databaseError();
         }
         return GetRecipeCommentListResponseDto.success(resultSets);
     }
@@ -238,20 +235,25 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
     }
 
     @Override
-    public ResponseEntity<? super GetTop3RecipeBoardListResponseDto> getTop3BoardList() {
+    public ResponseEntity<? extends ResponseDto> getTop5BoardList(int type) {
         List<RecipeBoardListViewEntity> boardListViewEntities = new ArrayList<>();
 
         try {
             Date beforeWeek = Date.from(Instant.now().minus(7, ChronoUnit.DAYS));
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sevenDaysAgo = simpleDateFormat.format(beforeWeek);
-            boardListViewEntities = recipeBoardListViewRepository.getTop3BoardList(sevenDaysAgo);
+            boardListViewEntities = recipeBoardListViewRepository.getTop5BoardList(sevenDaysAgo,type);
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            ResponseDto.databaseError();
+            return GetTop5RecipeBoardListResponseDto.getTop5DatabaseError();
         }
-        return GetTop3RecipeBoardListResponseDto.success(boardListViewEntities);
+        if (type == 0){
+            return GetTop5GeneralRecipeBoardListResponseDto.success(boardListViewEntities);
+        } else if (type == 1) {
+            return GetTop5ConvenienceRecipeBoardListResponseDto.success(boardListViewEntities);
+        }
+        return GetTop5RecipeBoardListResponseDto.getTop5TypeError();
     }
 
     @Override
