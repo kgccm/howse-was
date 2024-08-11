@@ -235,23 +235,23 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
     }
 
     @Override
-    public ResponseEntity<? extends ResponseDto> getTop5BoardList(int type) {
+    public ResponseEntity<? extends ResponseDto> getTop3BoardList(int type) {
         List<RecipeBoardListViewEntity> boardListViewEntities = new ArrayList<>();
 
         try {
             Date beforeWeek = Date.from(Instant.now().minus(7, ChronoUnit.DAYS));
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sevenDaysAgo = simpleDateFormat.format(beforeWeek);
-            boardListViewEntities = recipeBoardListViewRepository.getTop5BoardList(sevenDaysAgo,type);
+            boardListViewEntities = recipeBoardListViewRepository.getTop3BoardList(sevenDaysAgo,type);
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return GetTop5RecipeBoardListResponseDto.getTop5DatabaseError();
         }
         if (type == 0){
-            return GetTop5GeneralRecipeBoardListResponseDto.success(boardListViewEntities);
+            return GetTop3GeneralRecipeBoardListResponseDto.success(boardListViewEntities);
         } else if (type == 1) {
-            return GetTop5ConvenienceRecipeBoardListResponseDto.success(boardListViewEntities);
+            return GetTop3ConvenienceRecipeBoardListResponseDto.success(boardListViewEntities);
         }
         return GetTop5RecipeBoardListResponseDto.getTop5TypeError();
     }

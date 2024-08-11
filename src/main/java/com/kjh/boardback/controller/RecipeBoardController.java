@@ -61,11 +61,11 @@ public class RecipeBoardController {
         return response;
     }
 
-    @GetMapping("/{type}/top-5")
-    public ResponseEntity<? extends ResponseDto> getTop5BoardList(
+    @GetMapping("/{type}/top-3")
+    public ResponseEntity<? extends ResponseDto> getTop3BoardList(
             @PathVariable("type") Integer type
     ) {
-        ResponseEntity<? extends ResponseDto> response = boardService.getTop5BoardList(type);
+        ResponseEntity<? extends ResponseDto> response = boardService.getTop3BoardList(type);
         return response;
     }
 

@@ -25,8 +25,8 @@ public interface RecipeBoardListViewRepository extends JpaRepository<RecipeBoard
             "WHERE write_datetime > ?1 AND type = ?2 " +
             "ORDER BY favorite_count DESC, comment_count DESC, " +
             "view_count DESC, write_datetime DESC " +
-            "LIMIT 5", nativeQuery = true)
-    List<RecipeBoardListViewEntity> getTop5BoardList(String writeDateTime,int type);
+            "LIMIT 3", nativeQuery = true)
+    List<RecipeBoardListViewEntity> getTop3BoardList(String writeDateTime,int type);
 
     // List<RecipeBoardListViewEntity> findByTitleContainsOrContentContainsOrderByWriteDatetimeDesc(String title,String content);
     @Query(value =
