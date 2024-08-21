@@ -2,8 +2,6 @@ package com.kjh.boardback.entity.recipe_board;
 
 import com.kjh.boardback.dto.request.recipe_board.PatchRecipeBoardRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeBoardRequestDto;
-import com.kjh.boardback.dto.request.trade_board.PatchTradeBoardRequestDto;
-import com.kjh.boardback.dto.request.trade_board.PostTradeBoardRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +34,18 @@ public class RecipeBoardEntity {
     private int viewCount;
 
     private String writerEmail;
+
     private int type;
+
+    private int cookingTime;
+    private String step_1;
+    private String step_2;
+    private String step_3;
+    private String step_4;
+    private String step_5;
+    private String step_6;
+    private String step_7;
+    private String step_8;
 
 
     public void increaseViewCount(){
@@ -67,11 +76,29 @@ public class RecipeBoardEntity {
         this.viewCount = 0;
         this.writerEmail = email;
         this.type = requestDto.getType();
+        this.cookingTime = requestDto.getCookingTime();
+        this.step_1 = requestDto.getStep_1();
+        this.step_2 = requestDto.getStep_2();
+        this.step_3 = requestDto.getStep_3();
+        this.step_4 = requestDto.getStep_4();
+        this.step_5 = requestDto.getStep_5();
+        this.step_6 = requestDto.getStep_6();
+        this.step_7 = requestDto.getStep_7();
+        this.step_8 = requestDto.getStep_8();
     }
 
     public void patchBoard(PatchRecipeBoardRequestDto requestDto){
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+        this.cookingTime = requestDto.getCookingTime();
+        this.step_1 = requestDto.getStep_1();
+        this.step_2 = requestDto.getStep_2();
+        this.step_3 = requestDto.getStep_3();
+        this.step_4 = requestDto.getStep_4();
+        this.step_5 = requestDto.getStep_5();
+        this.step_6 = requestDto.getStep_6();
+        this.step_7 = requestDto.getStep_7();
+        this.step_8 = requestDto.getStep_8();
 
     }
 

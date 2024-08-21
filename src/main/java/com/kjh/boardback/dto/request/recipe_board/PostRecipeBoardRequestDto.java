@@ -22,5 +22,15 @@ public class PostRecipeBoardRequestDto {
     private List<String> boardImageList;
     @NotNull
     private int type;
+    @NotNull
+    private int cookingTime;
+    private String step_1;
+    private String step_2;
+    private String step_3;
+    private String step_4;
+    private String step_5;
+    private String step_6;
+    private String step_7;
+    private String step_8;
 
 }

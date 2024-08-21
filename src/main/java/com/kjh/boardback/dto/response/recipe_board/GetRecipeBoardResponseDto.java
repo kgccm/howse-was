@@ -3,9 +3,7 @@ package com.kjh.boardback.dto.response.recipe_board;
 import com.kjh.boardback.common.ResponseCode;
 import com.kjh.boardback.common.ResponseMessage;
 import com.kjh.boardback.dto.response.ResponseDto;
-import com.kjh.boardback.entity.board.ImageEntity;
 import com.kjh.boardback.entity.recipe_board.RecipeImageEntity;
-import com.kjh.boardback.repository.resultSet.GetBoardResultSet;
 import com.kjh.boardback.repository.resultSet.GetRecipeBoardResultSet;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -25,6 +23,15 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
     private String writerEmail;
     private String writerNickname;
     private String writerProfileImage;
+    private int cookingTime;
+    private String step_1;
+    private String step_2;
+    private String step_3;
+    private String step_4;
+    private String step_5;
+    private String step_6;
+    private String step_7;
+    private String step_8;
 
     private GetRecipeBoardResponseDto(GetRecipeBoardResultSet resultSet, List<RecipeImageEntity> imageEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -43,6 +50,15 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
         this.writerEmail = resultSet.getWriterEmail();
         this.writerNickname = resultSet.getWriterNickname();
         this.writerProfileImage = resultSet.getWriterProfileImage();
+        this.cookingTime = resultSet.getCookingTime();
+        this.step_1 = resultSet.getStep_1();
+        this.step_2 = resultSet.getStep_2();
+        this.step_3 = resultSet.getStep_3();
+        this.step_4 = resultSet.getStep_4();
+        this.step_5 = resultSet.getStep_5();
+        this.step_6 = resultSet.getStep_6();
+        this.step_7 = resultSet.getStep_7();
+        this.step_8 = resultSet.getStep_8();
     }
 
     public static ResponseEntity<GetRecipeBoardResponseDto> success(GetRecipeBoardResultSet resultSet, List<RecipeImageEntity> imageEntities){

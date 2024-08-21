@@ -1,7 +1,6 @@
 package com.kjh.boardback.dto.object;
 
 import com.kjh.boardback.entity.recipe_board.RecipeBoardListViewEntity;
-import com.kjh.boardback.entity.trade_board.TradeBoardListViewEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +22,15 @@ public class RecipeBoardListItem {
     private String writeDatetime;
     private String writerNickname;
     private String writerProfileImage;
+    private int cookingTime;
+    private String step_1;
+    private String step_2;
+    private String step_3;
+    private String step_4;
+    private String step_5;
+    private String step_6;
+    private String step_7;
+    private String step_8;
 
     public RecipeBoardListItem(RecipeBoardListViewEntity recipeBoardListViewEntity) {
         this.boardNumber = recipeBoardListViewEntity.getBoardNumber();
@@ -35,6 +43,15 @@ public class RecipeBoardListItem {
         this.writeDatetime = recipeBoardListViewEntity.getWriteDatetime();
         this.writerNickname = recipeBoardListViewEntity.getWriterNickname();
         this.writerProfileImage = recipeBoardListViewEntity.getWriterProfileImage();
+        this.cookingTime = recipeBoardListViewEntity.getCookingTime();
+        this.step_1 = recipeBoardListViewEntity.getStep_1();
+        this.step_2 = recipeBoardListViewEntity.getStep_2();
+        this.step_3 = recipeBoardListViewEntity.getStep_3();
+        this.step_4 = recipeBoardListViewEntity.getStep_4();
+        this.step_5 = recipeBoardListViewEntity.getStep_5();
+        this.step_6 = recipeBoardListViewEntity.getStep_6();
+        this.step_7 = recipeBoardListViewEntity.getStep_7();
+        this.step_8 = recipeBoardListViewEntity.getStep_8();
     }
 
     public static List<RecipeBoardListItem> getList(List<RecipeBoardListViewEntity>recipeBoardListViewEntities ){

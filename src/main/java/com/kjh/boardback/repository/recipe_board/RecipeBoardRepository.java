@@ -1,9 +1,7 @@
 package com.kjh.boardback.repository.recipe_board;
 
 import com.kjh.boardback.entity.recipe_board.RecipeBoardEntity;
-import com.kjh.boardback.entity.trade_board.TradeBoardEntity;
 import com.kjh.boardback.repository.resultSet.GetRecipeBoardResultSet;
-import com.kjh.boardback.repository.resultSet.GetTradeBoardResultSet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,6 +17,15 @@ public interface RecipeBoardRepository extends JpaRepository<RecipeBoardEntity, 
                             "B.content AS content, " +
                             "B.write_datetime AS writeDatetime, " +
                             "B.writer_email AS writerEmail, " +
+                            "B.cooking_time AS cookingTime, " +
+                            "B.step_1 AS step_1, " +
+                            "B.step_2 AS step_2, " +
+                            "B.step_3 AS step_3, " +
+                            "B.step_4 AS step_4, " +
+                            "B.step_5 AS step_5, " +
+                            "B.step_6 AS step_6, " +
+                            "B.step_7 AS step_7, " +
+                            "B.step_8 AS step_8, " +
                             "U.nickname AS writerNickname, " +
                             "U.profile_image AS writerProfileImage " +
                             "FROM recipe_board AS B " +
