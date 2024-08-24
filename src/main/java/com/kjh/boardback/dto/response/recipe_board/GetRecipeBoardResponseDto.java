@@ -23,6 +23,7 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
     private String writerEmail;
     private String writerNickname;
     private String writerProfileImage;
+    private int type;
     private int cookingTime;
     private List<String> step1_image;
     private String step1_content;
@@ -65,6 +66,7 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
         this.writerEmail = resultSet.getWriterEmail();
         this.writerNickname = resultSet.getWriterNickname();
         this.writerProfileImage = resultSet.getWriterProfileImage();
+        this.type = resultSet.getType();
         this.cookingTime = resultSet.getCookingTime();
         this.step1_content = resultSet.getStep_1();
         this.step2_content = resultSet.getStep_2();

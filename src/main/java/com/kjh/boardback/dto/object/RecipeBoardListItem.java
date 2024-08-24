@@ -22,6 +22,7 @@ public class RecipeBoardListItem {
     private String writeDatetime;
     private String writerNickname;
     private String writerProfileImage;
+    private int type;
     private int cookingTime;
     private String step1_content;
     private String step2_content;
@@ -44,6 +45,7 @@ public class RecipeBoardListItem {
         this.writerNickname = recipeBoardListViewEntity.getWriterNickname();
         this.writerProfileImage = recipeBoardListViewEntity.getWriterProfileImage();
         this.cookingTime = recipeBoardListViewEntity.getCookingTime();
+        this.type = recipeBoardListViewEntity.getType();
         this.step1_content = recipeBoardListViewEntity.getStep_1();
         this.step2_content = recipeBoardListViewEntity.getStep_2();
         this.step3_content = recipeBoardListViewEntity.getStep_3();
