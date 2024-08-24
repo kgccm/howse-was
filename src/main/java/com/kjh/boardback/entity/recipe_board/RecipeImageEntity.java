@@ -16,10 +16,12 @@ public class RecipeImageEntity {
     private int sequence;
     private int boardNumber;
     private String image;
+    private int step;
 
 
-    public RecipeImageEntity(int boardNumber, String image) {
+    public RecipeImageEntity(int boardNumber, String image,int step) {
         this.boardNumber = boardNumber;
         this.image = image;
+        this.step = step;
     }
 }

@@ -42,7 +42,6 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
         GetRecipeBoardResultSet resultSet = null;
         List<RecipeImageEntity> imageEntities = new ArrayList<>();
 
-
         try {
             resultSet = recipeBoardRepository.getRecipeBoard(boardNumber);
             if (resultSet == null) return GetRecipeBoardResponseDto.noExistBoard();
@@ -68,13 +67,8 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
 
             int boardNumber = boardEntity.getBoardNumber();
 
-            List<String> boardImageList = dto.getBoardImageList();
             List<RecipeImageEntity> imageEntities = new ArrayList<>();
-
-            for (String image : boardImageList) {
-                RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image);
-                imageEntities.add(imageEntity);
-            }
+            postBoardImageList(dto, boardNumber, imageEntities);
             recipeImageRepository.saveAll(imageEntities);
 
         } catch (Exception exception) {
@@ -82,6 +76,46 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
             return ResponseDto.databaseError();
         }
         return PostRecipeBoardResponseDto.success();
+    }
+
+    private static void postBoardImageList(PostRecipeBoardRequestDto dto, int boardNumber, List<RecipeImageEntity> imageEntities) {
+        List<String> boardImageList = dto.getBoardImageList();
+        for (String image : boardImageList) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,0);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep1_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,1);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep2_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,2);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep3_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,3);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep4_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,4);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep5_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,5);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep6_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,6);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep7_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,7);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep8_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,8);
+            imageEntities.add(imageEntity);
+        }
     }
 
 
@@ -204,15 +238,12 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
 
             boardEntity.patchBoard(dto);
             recipeBoardRepository.save(boardEntity);
-
             recipeImageRepository.deleteByBoardNumber(boardNumber);
+
             List<RecipeImageEntity> imageEntities = new ArrayList<>();
-            List<String> boardImageList = dto.getBoardImageList();
-            for (String image : boardImageList) {
-                RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image);
-                imageEntities.add(imageEntity);
-            }
+            patchBoardImageList(dto, boardNumber, imageEntities);
             recipeImageRepository.saveAll(imageEntities);
+
 
 
         } catch (Exception exception) {
@@ -220,6 +251,45 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
             return ResponseDto.databaseError();
         }
         return PatchRecipeBoardResponseDto.success();
+    }
+    private static void patchBoardImageList(PatchRecipeBoardRequestDto dto, int boardNumber, List<RecipeImageEntity> imageEntities) {
+        List<String> boardImageList = dto.getBoardImageList();
+        for (String image : boardImageList) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,0);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep1_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,1);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep2_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,2);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep3_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,3);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep4_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,4);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep5_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,5);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep6_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,6);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep7_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,7);
+            imageEntities.add(imageEntity);
+        }
+        for (String image : dto.getStep8_image()) {
+            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,8);
+            imageEntities.add(imageEntity);
+        }
     }
 
     @Override
@@ -246,14 +316,14 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            return GetTop5RecipeBoardListResponseDto.getTop5DatabaseError();
+            return GetTop3RecipeBoardListResponseDto.getTop3DatabaseError();
         }
         if (type == 0){
             return GetTop3GeneralRecipeBoardListResponseDto.success(boardListViewEntities);
         } else if (type == 1) {
             return GetTop3ConvenienceRecipeBoardListResponseDto.success(boardListViewEntities);
         }
-        return GetTop5RecipeBoardListResponseDto.getTop5TypeError();
+        return GetTop3RecipeBoardListResponseDto.getTop3TypeError();
     }
 
     @Override

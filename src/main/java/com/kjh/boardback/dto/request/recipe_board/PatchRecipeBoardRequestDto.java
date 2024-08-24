@@ -20,13 +20,21 @@ public class PatchRecipeBoardRequestDto {
     private List<String> boardImageList;
     @NotNull
     private int cookingTime;
-    private String step_1;
-    private String step_2;
-    private String step_3;
-    private String step_4;
-    private String step_5;
-    private String step_6;
-    private String step_7;
-    private String step_8;
+    private List<String> step1_image;
+    private String step1_content;
+    private List<String> step2_image;
+    private String step2_content;
+    private List<String> step3_image;
+    private String step3_content;
+    private List<String> step4_image;
+    private String step4_content;
+    private List<String> step5_image;
+    private String step5_content;
+    private List<String> step6_image;
+    private String step6_content;
+    private List<String> step7_image;
+    private String step7_content;
+    private List<String> step8_image;
+    private String step8_content;
 
 }

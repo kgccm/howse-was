@@ -77,28 +77,28 @@ public class RecipeBoardEntity {
         this.writerEmail = email;
         this.type = requestDto.getType();
         this.cookingTime = requestDto.getCookingTime();
-        this.step_1 = requestDto.getStep_1();
-        this.step_2 = requestDto.getStep_2();
-        this.step_3 = requestDto.getStep_3();
-        this.step_4 = requestDto.getStep_4();
-        this.step_5 = requestDto.getStep_5();
-        this.step_6 = requestDto.getStep_6();
-        this.step_7 = requestDto.getStep_7();
-        this.step_8 = requestDto.getStep_8();
+        this.step_1 = requestDto.getStep1_content();
+        this.step_2 = requestDto.getStep2_content();
+        this.step_3 = requestDto.getStep3_content();
+        this.step_4 = requestDto.getStep4_content();
+        this.step_5 = requestDto.getStep5_content();
+        this.step_6 = requestDto.getStep6_content();
+        this.step_7 = requestDto.getStep7_content();
+        this.step_8 = requestDto.getStep8_content();
     }
 
     public void patchBoard(PatchRecipeBoardRequestDto requestDto){
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.cookingTime = requestDto.getCookingTime();
-        this.step_1 = requestDto.getStep_1();
-        this.step_2 = requestDto.getStep_2();
-        this.step_3 = requestDto.getStep_3();
-        this.step_4 = requestDto.getStep_4();
-        this.step_5 = requestDto.getStep_5();
-        this.step_6 = requestDto.getStep_6();
-        this.step_7 = requestDto.getStep_7();
-        this.step_8 = requestDto.getStep_8();
+        this.step_1 = requestDto.getStep1_content();
+        this.step_2 = requestDto.getStep2_content();
+        this.step_3 = requestDto.getStep3_content();
+        this.step_4 = requestDto.getStep4_content();
+        this.step_5 = requestDto.getStep5_content();
+        this.step_6 = requestDto.getStep6_content();
+        this.step_7 = requestDto.getStep7_content();
+        this.step_8 = requestDto.getStep8_content();
 
     }
 

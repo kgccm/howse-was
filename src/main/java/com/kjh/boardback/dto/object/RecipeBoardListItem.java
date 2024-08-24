@@ -23,14 +23,14 @@ public class RecipeBoardListItem {
     private String writerNickname;
     private String writerProfileImage;
     private int cookingTime;
-    private String step_1;
-    private String step_2;
-    private String step_3;
-    private String step_4;
-    private String step_5;
-    private String step_6;
-    private String step_7;
-    private String step_8;
+    private String step1_content;
+    private String step2_content;
+    private String step3_content;
+    private String step4_content;
+    private String step5_content;
+    private String step6_content;
+    private String step7_content;
+    private String step8_content;
 
     public RecipeBoardListItem(RecipeBoardListViewEntity recipeBoardListViewEntity) {
         this.boardNumber = recipeBoardListViewEntity.getBoardNumber();
@@ -44,14 +44,14 @@ public class RecipeBoardListItem {
         this.writerNickname = recipeBoardListViewEntity.getWriterNickname();
         this.writerProfileImage = recipeBoardListViewEntity.getWriterProfileImage();
         this.cookingTime = recipeBoardListViewEntity.getCookingTime();
-        this.step_1 = recipeBoardListViewEntity.getStep_1();
-        this.step_2 = recipeBoardListViewEntity.getStep_2();
-        this.step_3 = recipeBoardListViewEntity.getStep_3();
-        this.step_4 = recipeBoardListViewEntity.getStep_4();
-        this.step_5 = recipeBoardListViewEntity.getStep_5();
-        this.step_6 = recipeBoardListViewEntity.getStep_6();
-        this.step_7 = recipeBoardListViewEntity.getStep_7();
-        this.step_8 = recipeBoardListViewEntity.getStep_8();
+        this.step1_content = recipeBoardListViewEntity.getStep_1();
+        this.step2_content = recipeBoardListViewEntity.getStep_2();
+        this.step3_content = recipeBoardListViewEntity.getStep_3();
+        this.step4_content = recipeBoardListViewEntity.getStep_4();
+        this.step5_content = recipeBoardListViewEntity.getStep_5();
+        this.step6_content = recipeBoardListViewEntity.getStep_6();
+        this.step7_content = recipeBoardListViewEntity.getStep_7();
+        this.step8_content = recipeBoardListViewEntity.getStep_8();
     }
 
     public static List<RecipeBoardListItem> getList(List<RecipeBoardListViewEntity>recipeBoardListViewEntities ){
