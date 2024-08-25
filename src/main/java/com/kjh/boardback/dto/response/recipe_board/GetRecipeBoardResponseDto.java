@@ -25,21 +25,21 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
     private String writerProfileImage;
     private int type;
     private int cookingTime;
-    private List<String> step1_image;
+    private String step1_image;
     private String step1_content;
-    private List<String> step2_image;
+    private String step2_image;
     private String step2_content;
-    private List<String> step3_image;
+    private String step3_image;
     private String step3_content;
-    private List<String> step4_image;
+    private String step4_image;
     private String step4_content;
-    private List<String> step5_image;
+    private String step5_image;
     private String step5_content;
-    private List<String> step6_image;
+    private String step6_image;
     private String step6_content;
-    private List<String> step7_image;
+    private String step7_image;
     private String step7_content;
-    private List<String> step8_image;
+    private String step8_image;
     private String step8_content;
    
 
@@ -47,16 +47,8 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
 
         List<String> boardImageList = new ArrayList<>();
-        List<String> step1_image = new ArrayList<>();
-        List<String> step2_image = new ArrayList<>();
-        List<String> step3_image = new ArrayList<>();
-        List<String> step4_image = new ArrayList<>();
-        List<String> step5_image = new ArrayList<>();
-        List<String> step6_image = new ArrayList<>();
-        List<String> step7_image = new ArrayList<>();
-        List<String> step8_image = new ArrayList<>();
 
-        classificationImage(imageEntities, boardImageList, step1_image, step2_image, step3_image, step4_image, step5_image, step6_image, step7_image, step8_image);
+        classificationImage(imageEntities, boardImageList);
 
         this.boardNumber = resultSet.getBoardNumber();
         this.title = resultSet.getTitle();
@@ -76,17 +68,9 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
         this.step6_content = resultSet.getStep_6();
         this.step7_content = resultSet.getStep_7();
         this.step8_content = resultSet.getStep_8();
-        this.step1_image = step1_image;
-        this.step2_image = step2_image;
-        this.step3_image = step3_image;
-        this.step4_image = step4_image;
-        this.step5_image = step5_image;
-        this.step6_image = step6_image;
-        this.step7_image = step7_image;
-        this.step8_image = step8_image;
     }
 
-    private static void classificationImage(List<RecipeImageEntity> imageEntities, List<String> boardImageList, List<String> step1_image, List<String> step2_image, List<String> step3_image, List<String> step4_image, List<String> step5_image, List<String> step6_image, List<String> step7_image, List<String> step8_image) {
+    private void classificationImage(List<RecipeImageEntity> imageEntities, List<String> boardImageList) {
         for(RecipeImageEntity imageEntity : imageEntities){
             String boardImage = imageEntity.getImage();
             int step = imageEntity.getStep();
@@ -95,28 +79,28 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
                     boardImageList.add(boardImage);
                     break;
                 case 1:
-                    step1_image.add(boardImage);
+                    this.step1_image=boardImage;
                     break;
                 case 2:
-                    step2_image.add(boardImage);
+                    this.step2_image=boardImage;
                     break;
                 case 3:
-                    step3_image.add(boardImage);
+                    this.step3_image=boardImage;
                     break;
                 case 4:
-                    step4_image.add(boardImage);
+                    this.step4_image=boardImage;
                     break;
                 case 5:
-                    step5_image.add(boardImage);
+                    this.step5_image=boardImage;
                     break;
                 case 6:
-                    step6_image.add(boardImage);
+                    this.step6_image=boardImage;
                     break;
                 case 7:
-                    step7_image.add(boardImage);
+                    this.step7_image=boardImage;
                     break;
                 case 8:
-                    step8_image.add(boardImage);
+                    this.step8_image=boardImage;
                     break;
             }
         }

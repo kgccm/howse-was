@@ -84,38 +84,14 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
             RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,0);
             imageEntities.add(imageEntity);
         }
-        for (String image : dto.getStep1_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,1);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep2_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,2);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep3_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,3);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep4_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,4);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep5_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,5);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep6_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,6);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep7_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,7);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep8_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,8);
-            imageEntities.add(imageEntity);
-        }
+        if(dto.getStep1_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep1_image(),1));
+        if(dto.getStep2_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep2_image(),2));
+        if(dto.getStep3_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep3_image(),3));
+        if(dto.getStep4_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep4_image(),4));
+        if(dto.getStep5_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep5_image(),5));
+        if(dto.getStep6_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep6_image(),6));
+        if(dto.getStep7_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep7_image(),7));
+        if(dto.getStep8_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep8_image(),8));
     }
 
 
@@ -258,38 +234,14 @@ public class RecipeBoardServiceImplement implements RecipeBoardService {
             RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,0);
             imageEntities.add(imageEntity);
         }
-        for (String image : dto.getStep1_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,1);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep2_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,2);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep3_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,3);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep4_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,4);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep5_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,5);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep6_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,6);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep7_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,7);
-            imageEntities.add(imageEntity);
-        }
-        for (String image : dto.getStep8_image()) {
-            RecipeImageEntity imageEntity = new RecipeImageEntity(boardNumber, image,8);
-            imageEntities.add(imageEntity);
-        }
+        if(dto.getStep1_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep1_image(),1));
+        if(dto.getStep2_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep2_image(),2));
+        if(dto.getStep3_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep3_image(),3));
+        if(dto.getStep4_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep4_image(),4));
+        if(dto.getStep5_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep5_image(),5));
+        if(dto.getStep6_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep6_image(),6));
+        if(dto.getStep7_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep7_image(),7));
+        if(dto.getStep8_image()!=null) imageEntities.add(new RecipeImageEntity(boardNumber, dto.getStep8_image(),8));
     }
 
     @Override
