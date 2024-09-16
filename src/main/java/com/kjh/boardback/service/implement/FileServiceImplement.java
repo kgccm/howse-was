@@ -31,7 +31,7 @@ public class FileServiceImplement implements FileService {
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
         String uuid = UUID.randomUUID().toString();
         String saveFileName = uuid + extension;
-        String savePath = filePath + saveFileName;
+        String savePath = "/home/ubuntu/fileUpload/" + saveFileName;
 
         File directory = new File(filePath);
         if (!directory.exists()) {
