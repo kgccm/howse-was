@@ -232,6 +232,7 @@ public class BoardServiceImplement implements BoardService {
 
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
             if (boardEntity == null) return IncreaseViewCountResponseDto.noExistBoard();
+            System.out.println("Before increase: " + boardEntity.getViewCount());
             boardEntity.increaseViewCount();
             boardRepository.save(boardEntity);
 
