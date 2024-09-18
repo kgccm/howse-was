@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class BoardListItem {
    private int favoriteCount;
    private int commentCount;
    private int viewCount;
-   private LocalDateTime writeDatetime;
+   private ZonedDateTime writeDatetime;
    private String writerNickname;
    private String writerProfileImage;
 

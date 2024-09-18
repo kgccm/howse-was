@@ -11,7 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Getter
 @NoArgsConstructor
@@ -25,13 +27,17 @@ public class CommentEntity {
     private int commentNumber;
 
     private String content;
-    private LocalDateTime writeDatetime; // LocalDateTime으로 변경
+
+    // ZonedDateTime으로 변경하고, 직렬화 시 KST로 처리
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
+    private ZonedDateTime writeDatetime;
+
     private String userEmail;
     private int boardNumber;
 
     public CommentEntity(Integer boardNumber, String email, PostCommentRequestDto dto) {
-        // LocalDateTime.now()로 현재 시간 저장
-        this.writeDatetime = LocalDateTime.now();
+        // 현재 시간을 KST 기준으로 저장
+        this.writeDatetime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         this.boardNumber = boardNumber;
         this.userEmail = email;
         this.content = dto.getContent();

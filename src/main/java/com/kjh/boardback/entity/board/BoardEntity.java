@@ -10,8 +10,9 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import java.time.ZonedDateTime;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Getter
 @NoArgsConstructor
@@ -28,8 +29,7 @@ public class BoardEntity {
 
     private String content;
 
-    private LocalDateTime writeDatetime; // LocalDateTime으로 변경
-
+    private ZonedDateTime writeDatetime;
     private int favoriteCount;
 
     private int commentCount;
@@ -59,8 +59,7 @@ public class BoardEntity {
     }
 
     public BoardEntity(PostBoardRequestDto dto, String email) {
-        // LocalDateTime.now()로 현재 시간 저장
-        this.writeDatetime = LocalDateTime.now();
+        this.writeDatetime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.favoriteCount = 0;

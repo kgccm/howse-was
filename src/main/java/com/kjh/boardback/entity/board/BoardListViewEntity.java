@@ -1,6 +1,10 @@
 package com.kjh.boardback.entity.board;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.ZoneId;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,7 +29,9 @@ public class BoardListViewEntity {
     private int viewCount;
     private int favoriteCount;
     private int commentCount;
-    private LocalDateTime writeDatetime;
+    // writeDatetime을 KST로 직렬화하기 위해 @JsonFormat 어노테이션 사용
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
+    private ZonedDateTime writeDatetime;
     private String writerEmail;
     private String writerNickname;
     private String writerProfileImage;

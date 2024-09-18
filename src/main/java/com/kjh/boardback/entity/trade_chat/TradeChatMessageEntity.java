@@ -1,6 +1,8 @@
 package com.kjh.boardback.entity.trade_chat;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,5 +25,6 @@ public class TradeChatMessageEntity {
 
     private String message;
 
-    private LocalDateTime writeDatetime;  // LocalDateTime으로 변경
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
+    private ZonedDateTime writeDatetime;
 }

@@ -1,6 +1,8 @@
 package com.kjh.boardback.entity.trade_board;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,7 +27,8 @@ public class TradeBoardListViewEntity {
     private int viewCount;
     private int favoriteCount;
     private int commentCount;
-    private LocalDateTime writeDatetime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
+    private ZonedDateTime writeDatetime;
     private String writerEmail;
     private String tradeLocation;
     private String price;
