@@ -1,6 +1,5 @@
 package com.kjh.boardback.dto.object;
 
-import com.kjh.boardback.repository.resultSet.GetFavoriteListResultSet;
 import com.kjh.boardback.repository.resultSet.GetTradeFavoriteListResultSet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

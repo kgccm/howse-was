@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +20,11 @@ public class BoardListItem {
    private int favoriteCount;
    private int commentCount;
    private int viewCount;
-   private String writeDatetime;
+   private LocalDateTime writeDatetime;
    private String writerNickname;
    private String writerProfileImage;
 
-   public BoardListItem(BoardListViewEntity boardListViewEntity){
+   public BoardListItem(BoardListViewEntity boardListViewEntity) {
       this.boardNumber = boardListViewEntity.getBoardNumber();
       this.title = boardListViewEntity.getTitle();
       this.content = boardListViewEntity.getContent();
@@ -36,9 +37,9 @@ public class BoardListItem {
       this.writerProfileImage = boardListViewEntity.getWriterProfileImage();
    }
 
-   public static List<BoardListItem> getList(List<BoardListViewEntity> boardListViewEntities){
+   public static List<BoardListItem> getList(List<BoardListViewEntity> boardListViewEntities) {
       List<BoardListItem> list = new ArrayList<>();
-      for(BoardListViewEntity boardListViewEntity : boardListViewEntities){
+      for (BoardListViewEntity boardListViewEntity : boardListViewEntities) {
          BoardListItem boardListItem = new BoardListItem(boardListViewEntity);
          list.add(boardListItem);
       }

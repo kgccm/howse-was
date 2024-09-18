@@ -1,5 +1,7 @@
 package com.kjh.boardback.entity.trade_chat;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,5 +23,5 @@ public class TradeChatMessageEntity {
 
     private String message;
 
-    private String writeDatetime;
+    private LocalDateTime writeDatetime;  // LocalDateTime으로 변경
 }

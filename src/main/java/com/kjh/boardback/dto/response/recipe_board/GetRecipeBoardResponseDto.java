@@ -9,6 +9,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
     private String title;
     private String content;
     private List<String> boardImageList;
-    private String writeDatetime;
+    private LocalDateTime writeDatetime; // 변경된 부분
     private String writerEmail;
     private String writerNickname;
     private String writerProfileImage;
@@ -41,7 +42,6 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
     private String step7_content;
     private String step8_image;
     private String step8_content;
-   
 
     private GetRecipeBoardResponseDto(GetRecipeBoardResultSet resultSet, List<RecipeImageEntity> imageEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -71,47 +71,48 @@ public class GetRecipeBoardResponseDto extends ResponseDto {
     }
 
     private void classificationImage(List<RecipeImageEntity> imageEntities, List<String> boardImageList) {
-        for(RecipeImageEntity imageEntity : imageEntities){
+        for (RecipeImageEntity imageEntity : imageEntities) {
             String boardImage = imageEntity.getImage();
             int step = imageEntity.getStep();
-            switch(step){
+            switch (step) {
                 case 0:
                     boardImageList.add(boardImage);
                     break;
                 case 1:
-                    this.step1_image=boardImage;
+                    this.step1_image = boardImage;
                     break;
                 case 2:
-                    this.step2_image=boardImage;
+                    this.step2_image = boardImage;
                     break;
                 case 3:
-                    this.step3_image=boardImage;
+                    this.step3_image = boardImage;
                     break;
                 case 4:
-                    this.step4_image=boardImage;
+                    this.step4_image = boardImage;
                     break;
                 case 5:
-                    this.step5_image=boardImage;
+                    this.step5_image = boardImage;
                     break;
                 case 6:
-                    this.step6_image=boardImage;
+                    this.step6_image = boardImage;
                     break;
                 case 7:
-                    this.step7_image=boardImage;
+                    this.step7_image = boardImage;
                     break;
                 case 8:
-                    this.step8_image=boardImage;
+                    this.step8_image = boardImage;
                     break;
             }
         }
     }
 
-    public static ResponseEntity<GetRecipeBoardResponseDto> success(GetRecipeBoardResultSet resultSet, List<RecipeImageEntity> imageEntities){
-        GetRecipeBoardResponseDto result = new GetRecipeBoardResponseDto(resultSet,imageEntities);
+    public static ResponseEntity<GetRecipeBoardResponseDto> success(GetRecipeBoardResultSet resultSet,
+            List<RecipeImageEntity> imageEntities) {
+        GetRecipeBoardResponseDto result = new GetRecipeBoardResponseDto(resultSet, imageEntities);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    public static ResponseEntity<ResponseDto> noExistBoard(){
+    public static ResponseEntity<ResponseDto> noExistBoard() {
         ResponseDto result = new ResponseDto(ResponseCode.NOT_EXISTED_BOARD, ResponseMessage.NOT_EXISTED_BOARD);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }

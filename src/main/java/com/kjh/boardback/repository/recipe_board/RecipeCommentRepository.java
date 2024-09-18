@@ -1,9 +1,7 @@
 package com.kjh.boardback.repository.recipe_board;
 
 import com.kjh.boardback.entity.recipe_board.RecipeCommentEntity;
-import com.kjh.boardback.entity.trade_board.TradeCommentEntity;
 import com.kjh.boardback.repository.resultSet.GetRecipeCommentListResultSet;
-import com.kjh.boardback.repository.resultSet.GetTradeCommentListResultSet;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

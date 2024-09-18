@@ -1,7 +1,5 @@
 package com.kjh.boardback.entity.trade_board;
 
-import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
-import com.kjh.boardback.dto.request.board.PostCommentRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PatchTradeCommentRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeCommentRequestDto;
 import jakarta.persistence.*;
@@ -9,10 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -21,27 +16,28 @@ import java.util.Date;
 @Table(name = "trade_comment")
 public class TradeCommentEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int commentNumber;
 
     private String content;
-    private String writeDatetime;
+
+    private LocalDateTime writeDatetime;  // LocalDateTime으로 변경
+
     private String userEmail;
+
     private int boardNumber;
 
     public TradeCommentEntity(Integer boardNumber, String email, PostTradeCommentRequestDto dto) {
-        Date date = Date.from(Instant.now());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String writeDatetime = dateFormat.format(date);
+        // LocalDateTime.now()를 사용하여 현재 시간 기록
+        this.writeDatetime = LocalDateTime.now();
 
-        this.boardNumber =boardNumber;
+        this.boardNumber = boardNumber;
         this.userEmail = email;
         this.content = dto.getContent();
-        this.writeDatetime =writeDatetime;
     }
 
-    public void patchComment(PatchTradeCommentRequestDto dto){
+    public void patchComment(PatchTradeCommentRequestDto dto) {
         this.content = dto.getContent();
     }
-
 }

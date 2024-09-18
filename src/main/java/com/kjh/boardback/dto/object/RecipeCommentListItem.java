@@ -1,11 +1,11 @@
 package com.kjh.boardback.dto.object;
 
-import com.kjh.boardback.repository.resultSet.GetCommentListResultSet;
 import com.kjh.boardback.repository.resultSet.GetRecipeCommentListResultSet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +17,10 @@ public class RecipeCommentListItem {
     private Integer commentNumber;
     private String nickname;
     private String profileImage;
-    private String writeDatetime;
+    private LocalDateTime writeDatetime;
     private String content;
 
-    private RecipeCommentListItem(GetRecipeCommentListResultSet resultSet){
+    private RecipeCommentListItem(GetRecipeCommentListResultSet resultSet) {
         this.commentNumber = resultSet.getCommentNumber();
         this.nickname = resultSet.getNickname();
         this.profileImage = resultSet.getProfileImage();

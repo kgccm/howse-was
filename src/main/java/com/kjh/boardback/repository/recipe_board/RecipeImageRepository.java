@@ -1,7 +1,6 @@
 package com.kjh.boardback.repository.recipe_board;
 
 import com.kjh.boardback.entity.recipe_board.RecipeImageEntity;
-import com.kjh.boardback.entity.trade_board.TradeImageEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

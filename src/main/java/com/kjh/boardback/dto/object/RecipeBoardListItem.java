@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class RecipeBoardListItem {
     private int favoriteCount;
     private int commentCount;
     private int viewCount;
-    private String writeDatetime;
+    private LocalDateTime writeDatetime;
     private String writerNickname;
     private String writerProfileImage;
     private int type;
@@ -56,9 +57,9 @@ public class RecipeBoardListItem {
         this.step8_content = recipeBoardListViewEntity.getStep_8();
     }
 
-    public static List<RecipeBoardListItem> getList(List<RecipeBoardListViewEntity>recipeBoardListViewEntities ){
+    public static List<RecipeBoardListItem> getList(List<RecipeBoardListViewEntity> recipeBoardListViewEntities) {
         List<RecipeBoardListItem> recipeBoardListItems = new ArrayList<>();
-        for(RecipeBoardListViewEntity recipeBoardListViewEntity : recipeBoardListViewEntities){
+        for (RecipeBoardListViewEntity recipeBoardListViewEntity : recipeBoardListViewEntities) {
             RecipeBoardListItem recipeBoardListItem = new RecipeBoardListItem(recipeBoardListViewEntity);
             recipeBoardListItems.add(recipeBoardListItem);
         }

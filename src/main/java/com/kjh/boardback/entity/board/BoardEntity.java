@@ -11,9 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -21,15 +19,16 @@ import java.util.Date;
 @Entity(name = "board")
 @Table(name = "board")
 public class BoardEntity {
-    
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int boardNumber;
 
     private String title;
 
     private String content;
 
-    private String writeDatetime;
+    private LocalDateTime writeDatetime; // LocalDateTime으로 변경
     
     private int favoriteCount;
 
@@ -39,39 +38,39 @@ public class BoardEntity {
 
     private String writerEmail;
 
-
-
-    public void increaseViewCount(){
+    public void increaseViewCount() {
         this.viewCount++;
     }
 
-    public void increaseCommentCount(){
+    public void increaseCommentCount() {
         this.commentCount++;
     }
 
-    public void decreaseCommentCount() {this.commentCount--;}
+    public void decreaseCommentCount() {
+        this.commentCount--;
+    }
 
-    public void increaseFavoriteCount(){this.favoriteCount++;}
-    public void decreaseFavoriteCount(){this.favoriteCount--;}
+    public void increaseFavoriteCount() {
+        this.favoriteCount++;
+    }
 
-    public BoardEntity(PostBoardRequestDto dto,String email) {
+    public void decreaseFavoriteCount() {
+        this.favoriteCount--;
+    }
 
-        Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String writeDateTime = simpleDateFormat.format(now);
-
+    public BoardEntity(PostBoardRequestDto dto, String email) {
+        // LocalDateTime.now()로 현재 시간 저장
+        this.writeDatetime = LocalDateTime.now();
         this.title = dto.getTitle();
         this.content = dto.getContent();
-        this.writeDatetime = writeDateTime;
-        this.favoriteCount =0;
+        this.favoriteCount = 0;
         this.commentCount = 0;
         this.viewCount = 0;
         this.writerEmail = email;
     }
 
-    public void patchBoard(PatchBoardRequestDto dto){
+    public void patchBoard(PatchBoardRequestDto dto) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
     }
-
 }

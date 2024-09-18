@@ -1,5 +1,7 @@
 package com.kjh.boardback.entity.recipe_board;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,17 +15,17 @@ import lombok.NoArgsConstructor;
 @Entity(name = "recipe_board_list_view")
 @Table(name = "recipe_board_list_view")
 public class RecipeBoardListViewEntity {
-    
+
     @Id
     private int boardNumber;
-    
+
     private String title;
     private String content;
     private String titleImage;
     private int viewCount;
     private int favoriteCount;
     private int commentCount;
-    private String writeDatetime;
+    private LocalDateTime writeDatetime;
     private String writerEmail;
     private String writerNickname;
     private String writerProfileImage;
@@ -37,7 +39,5 @@ public class RecipeBoardListViewEntity {
     private String step_6;
     private String step_7;
     private String step_8;
-
-
 
 }

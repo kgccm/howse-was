@@ -9,6 +9,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime; // LocalDateTime import
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class GetTradeBoardResponseDto extends ResponseDto {
     private final String title;
     private final String content;
     private final List<String> boardImageList;
-    private final String writeDatetime;
+    private final LocalDateTime writeDatetime; // 변경된 부분
     private final String writerEmail;
     private final String tradeLocation;
     private final String price;
@@ -39,7 +40,7 @@ public class GetTradeBoardResponseDto extends ResponseDto {
         this.title = resultSet.getTitle();
         this.content = resultSet.getContent();
         this.boardImageList = boardImageList;
-        this.writeDatetime = resultSet.getWriteDatetime();
+        this.writeDatetime = resultSet.getWriteDatetime(); // 변경된 부분
         this.writerEmail = resultSet.getWriterEmail();
         this.tradeLocation = resultSet.getTradeLocation();
         this.price = resultSet.getPrice();
@@ -56,6 +57,4 @@ public class GetTradeBoardResponseDto extends ResponseDto {
         ResponseDto result = new ResponseDto(ResponseCode.NOT_EXISTED_BOARD, ResponseMessage.NOT_EXISTED_BOARD);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
-
-
 }

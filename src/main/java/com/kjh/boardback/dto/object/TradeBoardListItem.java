@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class TradeBoardListItem {
     private int favoriteCount;
     private int commentCount;
     private int viewCount;
-    private String writeDatetime;
+    private LocalDateTime writeDatetime;
     private String tradeLocation;
     private String price;
     private String writerNickname;
@@ -40,9 +41,9 @@ public class TradeBoardListItem {
         this.writerProfileImage = tradeBoardListViewEntity.getWriterProfileImage();
     }
 
-    public static List<TradeBoardListItem> getList(List<TradeBoardListViewEntity>tradeBoardListViewEntities ){
+    public static List<TradeBoardListItem> getList(List<TradeBoardListViewEntity> tradeBoardListViewEntities) {
         List<TradeBoardListItem> tradeBoardListItems = new ArrayList<>();
-        for(TradeBoardListViewEntity tradeBoardListViewEntity : tradeBoardListViewEntities){
+        for (TradeBoardListViewEntity tradeBoardListViewEntity : tradeBoardListViewEntities) {
             TradeBoardListItem tradeBoardListItem = new TradeBoardListItem(tradeBoardListViewEntity);
             tradeBoardListItems.add(tradeBoardListItem);
         }

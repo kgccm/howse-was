@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -18,14 +16,15 @@ import java.util.Date;
 @Table(name = "recipe_board")
 public class RecipeBoardEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int boardNumber;
 
     private String title;
 
     private String content;
 
-    private String writeDatetime;
+    private LocalDateTime writeDatetime;  // LocalDateTime으로 변경
 
     private int favoriteCount;
 
@@ -38,6 +37,7 @@ public class RecipeBoardEntity {
     private int type;
 
     private int cookingTime;
+
     private String step_1;
     private String step_2;
     private String step_3;
@@ -47,30 +47,32 @@ public class RecipeBoardEntity {
     private String step_7;
     private String step_8;
 
-
-    public void increaseViewCount(){
+    public void increaseViewCount() {
         this.viewCount++;
     }
 
-    public void increaseCommentCount(){
+    public void increaseCommentCount() {
         this.commentCount++;
     }
-    public void decreaseCommentCount(){
+
+    public void decreaseCommentCount() {
         this.commentCount--;
     }
 
-    public void increaseFavoriteCount(){this.favoriteCount++;}
-    public void decreaseFavoriteCount(){this.favoriteCount--;}
+    public void increaseFavoriteCount() {
+        this.favoriteCount++;
+    }
 
-    public RecipeBoardEntity(PostRecipeBoardRequestDto requestDto, String email){
+    public void decreaseFavoriteCount() {
+        this.favoriteCount--;
+    }
 
-        Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String writeDateTime = simpleDateFormat.format(now);
+    public RecipeBoardEntity(PostRecipeBoardRequestDto requestDto, String email) {
+        // LocalDateTime.now()를 사용하여 현재 시간 기록
+        this.writeDatetime = LocalDateTime.now();
 
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
-        this.writeDatetime = writeDateTime;
         this.favoriteCount = 0;
         this.commentCount = 0;
         this.viewCount = 0;
@@ -87,7 +89,7 @@ public class RecipeBoardEntity {
         this.step_8 = requestDto.getStep8_content();
     }
 
-    public void patchBoard(PatchRecipeBoardRequestDto requestDto){
+    public void patchBoard(PatchRecipeBoardRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.cookingTime = requestDto.getCookingTime();
@@ -99,7 +101,5 @@ public class RecipeBoardEntity {
         this.step_6 = requestDto.getStep6_content();
         this.step_7 = requestDto.getStep7_content();
         this.step_8 = requestDto.getStep8_content();
-
     }
-
 }

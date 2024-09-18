@@ -1,7 +1,5 @@
 package com.kjh.boardback.entity.trade_board;
 
-import com.kjh.boardback.dto.request.board.PatchBoardRequestDto;
-import com.kjh.boardback.dto.request.board.PostBoardRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PatchTradeBoardRequestDto;
 import com.kjh.boardback.dto.request.trade_board.PostTradeBoardRequestDto;
 import jakarta.persistence.*;
@@ -9,9 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -20,14 +16,15 @@ import java.util.Date;
 @Table(name = "trade_board")
 public class TradeBoardEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int boardNumber;
 
     private String title;
 
     private String content;
 
-    private String writeDatetime;
+    private LocalDateTime writeDatetime;  // LocalDateTime으로 변경
 
     private int favoriteCount;
 
@@ -41,30 +38,32 @@ public class TradeBoardEntity {
 
     private String price;
 
-
-    public void increaseViewCount(){
+    public void increaseViewCount() {
         this.viewCount++;
     }
 
-    public void increaseCommentCount(){
+    public void increaseCommentCount() {
         this.commentCount++;
     }
-    public void decreaseCommentCount(){
+
+    public void decreaseCommentCount() {
         this.commentCount--;
     }
 
-    public void increaseFavoriteCount(){this.favoriteCount++;}
-    public void decreaseFavoriteCount(){this.favoriteCount--;}
+    public void increaseFavoriteCount() {
+        this.favoriteCount++;
+    }
 
-    public TradeBoardEntity(PostTradeBoardRequestDto requestDto,String email){
+    public void decreaseFavoriteCount() {
+        this.favoriteCount--;
+    }
 
-        Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String writeDateTime = simpleDateFormat.format(now);
+    public TradeBoardEntity(PostTradeBoardRequestDto requestDto, String email) {
+        // LocalDateTime.now()를 사용하여 현재 시간 기록
+        this.writeDatetime = LocalDateTime.now();
 
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
-        this.writeDatetime = writeDateTime;
         this.favoriteCount = 0;
         this.commentCount = 0;
         this.viewCount = 0;
@@ -73,11 +72,10 @@ public class TradeBoardEntity {
         this.price = requestDto.getPrice();
     }
 
-    public void patchBoard(PatchTradeBoardRequestDto requestDto){
+    public void patchBoard(PatchTradeBoardRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.tradeLocation = requestDto.getTradeLocation();
         this.price = requestDto.getPrice();
     }
-
 }
