@@ -1,8 +1,6 @@
 package com.kjh.boardback.entity.recipe_board;
 
-import java.time.ZonedDateTime;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -27,9 +25,7 @@ public class RecipeBoardListViewEntity {
     private int viewCount;
     private int favoriteCount;
     private int commentCount;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
-    private ZonedDateTime writeDatetime;
+    private LocalDateTime writeDatetime;
     private String writerEmail;
     private String writerNickname;
     private String writerProfileImage;

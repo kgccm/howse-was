@@ -1,6 +1,5 @@
 package com.kjh.boardback.entity.recipe_board;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kjh.boardback.dto.request.board.PatchCommentRequestDto;
 import com.kjh.boardback.dto.request.recipe_board.PostRecipeCommentRequestDto;
 import jakarta.persistence.*;
@@ -8,8 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.ZonedDateTime;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -18,25 +16,24 @@ import java.time.ZoneId;
 @Table(name = "recipe_comment")
 public class RecipeCommentEntity {
 
-    @Id
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int commentNumber;
 
     private String content;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
-    private ZonedDateTime writeDatetime;
+    private LocalDateTime writeDatetime; // LocalDateTime으로 변경
     private String userEmail;
     private int boardNumber;
 
     public RecipeCommentEntity(Integer boardNumber, String email, PostRecipeCommentRequestDto dto) {
-        // ZonedDateTime.now()로 현재 시간 저장 (Asia/Seoul)
-        this.writeDatetime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+        // LocalDateTime.now()로 현재 시간 저장
+        this.writeDatetime = LocalDateTime.now();
         this.boardNumber = boardNumber;
         this.userEmail = email;
         this.content = dto.getContent();
     }
 
-    public void patchComment(PatchCommentRequestDto dto) {
+    public void patchComment(PatchCommentRequestDto dto){
         this.content = dto.getContent();
     }
 }

@@ -1,6 +1,6 @@
 package com.kjh.boardback.repository.resultSet;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 public interface GetRecipeCommentListResultSet {
     Integer getCommentNumber();
@@ -9,7 +9,7 @@ public interface GetRecipeCommentListResultSet {
 
     String getProfileImage();
 
-    ZonedDateTime getWriteDatetime(); // ZonedDateTime으로 변경
+    LocalDateTime getWriteDatetime();
 
     String getContent();
 }

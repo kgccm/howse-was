@@ -7,8 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.ZonedDateTime;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -25,7 +24,7 @@ public class RecipeBoardEntity {
 
     private String content;
 
-    private ZonedDateTime writeDatetime;  // ZonedDateTime으로 변경
+    private LocalDateTime writeDatetime;  // LocalDateTime으로 변경
 
     private int favoriteCount;
 
@@ -69,8 +68,8 @@ public class RecipeBoardEntity {
     }
 
     public RecipeBoardEntity(PostRecipeBoardRequestDto requestDto, String email) {
-        // ZonedDateTime.now()를 사용하여 KST 시간 기록
-        this.writeDatetime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+        // LocalDateTime.now()를 사용하여 현재 시간 기록
+        this.writeDatetime = LocalDateTime.now();
 
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();

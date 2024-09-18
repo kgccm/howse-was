@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class RecipeCommentListItem {
     private Integer commentNumber;
     private String nickname;
     private String profileImage;
-    private ZonedDateTime writeDatetime;
+    private LocalDateTime writeDatetime;
     private String content;
 
     private RecipeCommentListItem(GetRecipeCommentListResultSet resultSet) {

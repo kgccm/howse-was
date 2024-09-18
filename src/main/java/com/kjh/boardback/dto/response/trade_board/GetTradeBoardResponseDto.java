@@ -9,7 +9,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime; // LocalDateTime import
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class GetTradeBoardResponseDto extends ResponseDto {
     private final String title;
     private final String content;
     private final List<String> boardImageList;
-    private final ZonedDateTime writeDatetime; // 변경된 부분
+    private final LocalDateTime writeDatetime; // 변경된 부분
     private final String writerEmail;
     private final String tradeLocation;
     private final String price;

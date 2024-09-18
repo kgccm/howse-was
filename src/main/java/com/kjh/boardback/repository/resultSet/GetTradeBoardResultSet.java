@@ -1,6 +1,6 @@
 package com.kjh.boardback.repository.resultSet;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 public interface GetTradeBoardResultSet {
     Integer getBoardNumber();
@@ -9,7 +9,7 @@ public interface GetTradeBoardResultSet {
 
     String getContent();
 
-    ZonedDateTime getWriteDatetime(); // ZonedDateTime으로 변경
+    LocalDateTime getWriteDatetime();
 
     String getWriterEmail();
 
