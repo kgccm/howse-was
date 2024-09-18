@@ -44,3 +44,6 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+bootRun {
+    jvmArgs = ["-Duser.timezone=KST"]
+}

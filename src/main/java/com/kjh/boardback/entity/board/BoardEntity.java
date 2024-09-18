@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Table(name = "board")
 public class BoardEntity {
 
-    @Id 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int boardNumber;
 
@@ -29,7 +29,7 @@ public class BoardEntity {
     private String content;
 
     private LocalDateTime writeDatetime; // LocalDateTime으로 변경
-    
+
     private int favoriteCount;
 
     private int commentCount;
