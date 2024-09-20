@@ -31,54 +31,60 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+        private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Bean
-    protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .cors(cors -> cors
-                        .configurationSource(corsConfigurationSource()))
-                .csrf(CsrfConfigurer::disable)
-                .httpBasic(HttpBasicConfigurer::disable)
-                .sessionManagement(sessionManagement -> sessionManagement
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/community/**", "/api/v1/user/*","/api/v1/trade/**","/api/v1/recipe/**","/ws/**").permitAll()
-                        .anyRequest().authenticated())
-                .exceptionHandling(exceptionHandle -> exceptionHandle
-                        .authenticationEntryPoint(new FailedAuthenticationEntryPoint()))
+        @Bean
+        protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
+                httpSecurity
+                                .cors(cors -> cors
+                                                .configurationSource(corsConfigurationSource()))
+                                .csrf(CsrfConfigurer::disable)
+                                .httpBasic(HttpBasicConfigurer::disable)
+                                .sessionManagement(sessionManagement -> sessionManagement
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .authorizeHttpRequests(request -> request
+                                                .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**",
+                                                                "/file/**", "/community/**", "/board/**", "/user/**",
+                                                                "/recipe/**", "/trade/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/v1/community/**",
+                                                                "/api/v1/user/*", "/api/v1/trade/**",
+                                                                "/api/v1/recipe/**", "/ws/**")
+                                                .permitAll()
+                                                .anyRequest().authenticated())
+                                .exceptionHandling(exceptionHandle -> exceptionHandle
+                                                .authenticationEntryPoint(new FailedAuthenticationEntryPoint()))
 
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return httpSecurity.build();
-    }
+                return httpSecurity.build();
+        }
 
-    @Bean
-    protected CorsConfigurationSource corsConfigurationSource() {
+        @Bean
+        protected CorsConfigurationSource corsConfigurationSource() {
 
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+                CorsConfiguration configuration = new CorsConfiguration();
+                configuration.setAllowedOrigins(Arrays.asList("*"));
+                configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+                configuration.setAllowedHeaders(Arrays.asList("*"));
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", configuration);
 
-        return source;
-    }
+                return source;
+        }
 
 }
 
 class FailedAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException authException) throws IOException, ServletException {
+        @Override
+        public void commence(HttpServletRequest request, HttpServletResponse response,
+                        AuthenticationException authException) throws IOException, ServletException {
 
-        response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getWriter().write("{ \"code\" : \"AF\", \"message\" : \"Authorization Failed\"}");
-    }
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("{ \"code\" : \"AF\", \"message\" : \"Authorization Failed\"}");
+        }
 
 }
