@@ -56,11 +56,11 @@ public class AccountLogController {
     }
 
     @DeleteMapping("/custom-type/{customTypeNumber}")
-    ResponseEntity<? super DeleteMonetCustomTypeResponseDto> deleteCustomType(
+    ResponseEntity<? super DeleteMoneyCustomTypeResponseDto> deleteCustomType(
             @AuthenticationPrincipal String email,
             @PathVariable("customTypeNumber") Integer customTypeNumber
     ) {
-        ResponseEntity<? super DeleteMonetCustomTypeResponseDto> response = accountLogService.deleteMoneyCustomType(email, customTypeNumber);
+        ResponseEntity<? super DeleteMoneyCustomTypeResponseDto> response = accountLogService.deleteMoneyCustomType(email, customTypeNumber);
         return response;
     }
 

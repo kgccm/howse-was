@@ -51,27 +51,27 @@ public class AccountLogServiceImplement implements AccountLogService {
     }
 
     @Override
-    public ResponseEntity<? super DeleteMonetCustomTypeResponseDto> deleteMoneyCustomType(String email, int customTypeNumber) {
+    public ResponseEntity<? super DeleteMoneyCustomTypeResponseDto> deleteMoneyCustomType(String email, int customTypeNumber) {
         try{
             boolean existedEmail = userRepository.existsByEmail(email);
             if(!existedEmail){
-                return DeleteMonetCustomTypeResponseDto.noExistUser();
+                return DeleteMoneyCustomTypeResponseDto.noExistUser();
             }
             Boolean existedAccountLog = moneyCustomTypeRepository.existsByCustomTypeNumber(customTypeNumber);
             if(!existedAccountLog){
-                return DeleteMonetCustomTypeResponseDto.noExistBoard();
+                return DeleteMoneyCustomTypeResponseDto.noExistBoard();
             }
             MoneyCustomTypeEntity moneyCustomTypeEntity = moneyCustomTypeRepository.findByCustomTypeNumber(customTypeNumber);
             String userEmail = moneyCustomTypeEntity.getUserEmail();
             if(!userEmail.equals(email)){
-                return DeleteMonetCustomTypeResponseDto.noPermission();
+                return DeleteMoneyCustomTypeResponseDto.noPermission();
             }
             moneyCustomTypeRepository.deleteByCustomTypeNumber(customTypeNumber);
         }catch (Exception exception){
             exception.printStackTrace();
-            return DeleteMonetCustomTypeResponseDto.databaseError();
+            return DeleteMoneyCustomTypeResponseDto.databaseError();
         }
-        return DeleteMonetCustomTypeResponseDto.success();
+        return DeleteMoneyCustomTypeResponseDto.success();
     }
 
     @Override

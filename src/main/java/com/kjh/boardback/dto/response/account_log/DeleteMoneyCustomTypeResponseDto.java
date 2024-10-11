@@ -8,12 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Getter
-public class DeleteMonetCustomTypeResponseDto extends ResponseDto {
-    private DeleteMonetCustomTypeResponseDto() {
+public class DeleteMoneyCustomTypeResponseDto extends ResponseDto {
+    private DeleteMoneyCustomTypeResponseDto() {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
     }
-    public static ResponseEntity<DeleteMonetCustomTypeResponseDto> success(){
-        DeleteMonetCustomTypeResponseDto result = new DeleteMonetCustomTypeResponseDto();
+    public static ResponseEntity<DeleteMoneyCustomTypeResponseDto> success(){
+        DeleteMoneyCustomTypeResponseDto result = new DeleteMoneyCustomTypeResponseDto();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
     public static ResponseEntity<ResponseDto> noExistUser(){

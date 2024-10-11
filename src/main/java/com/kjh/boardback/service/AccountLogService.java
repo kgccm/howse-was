@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface AccountLogService {
     ResponseEntity<? super DeleteAccountLogResponseDto> deleteAccountLog(String email,int accountLogNumber);
-    ResponseEntity<? super DeleteMonetCustomTypeResponseDto> deleteMoneyCustomType(String email, int customTypeNumber);
+    ResponseEntity<? super DeleteMoneyCustomTypeResponseDto> deleteMoneyCustomType(String email, int customTypeNumber);
     ResponseEntity<? super PatchAccountLogResponseDto> patchAccountLog(String email, int accountLogNumber,PatchAccountLogRequestDto dto);
     ResponseEntity<? super PostMoneyCustomTypeResponseDto> postMoneyCustomType(String email, PostMoneyCustomTypeRequestDto dto);
     ResponseEntity<? super PostAccountLogResponseDto> postAccountLog(String email,PostAccountLogRequestDto dto);
