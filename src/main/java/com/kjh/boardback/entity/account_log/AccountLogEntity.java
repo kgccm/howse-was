@@ -33,17 +33,16 @@ public class AccountLogEntity {
         this.type = dto.getType();
         this.moneyCustomTypeNumber = dto.getMoneyCustomTypeNumber();
         this.money = dto.getMoney();
+        this.datetime = dto.getDatetime();
     }
     public AccountLogEntity(String email, PostAccountLogRequestDto dto){
-        Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateTime = simpleDateFormat.format(now);
+        
 
         this.userEmail = email;
         this.content = dto.getContent();
         this.type = dto.getType();
         this.moneyCustomTypeNumber = dto.getMoneyCustomTypeNumber();
         this.money = dto.getMoney();
-        this.datetime = dateTime;
+        this.datetime = dto.getDatetime();
     }
 }

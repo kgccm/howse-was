@@ -18,4 +18,6 @@ public class PatchAccountLogRequestDto {
     private int moneyCustomTypeNumber;
     @NotNull
     private int money;
+    @NotBlank
+    private String datetime;
 }

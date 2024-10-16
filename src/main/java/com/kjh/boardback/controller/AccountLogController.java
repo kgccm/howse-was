@@ -75,20 +75,29 @@ public class AccountLogController {
     @GetMapping("/day")
     ResponseEntity<? super GetDayAccountLogResponseDto> getDayAccountLog(
             @AuthenticationPrincipal String email,
-            @RequestBody @Valid Datetime requestBody
+            @RequestParam("datetime") String datetime // 쿼리 매개변수로 날짜를 받음
     ) {
-        String datetime = requestBody.getDatetime();
         ResponseEntity<? super GetDayAccountLogResponseDto> response = accountLogService.getDayAccountLog(email, datetime);
         return response;
     }
+    
 
+    // @GetMapping("/calender")
+    // ResponseEntity<? super GetCalenderResponseDto> getCalender(
+    //         @AuthenticationPrincipal String email,
+    //         @RequestBody @Valid Datetime requestBody
+    // ) {
+    //     String datetime = requestBody.getDatetime();
+    //     ResponseEntity<? super GetCalenderResponseDto> response = accountLogService.getCalender(email, datetime);
+    //     return response;
+    // }
     @GetMapping("/calender")
-    ResponseEntity<? super GetCalenderResponseDto> getCalender(
-            @AuthenticationPrincipal String email,
-            @RequestBody @Valid Datetime requestBody
-    ) {
-        String datetime = requestBody.getDatetime();
-        ResponseEntity<? super GetCalenderResponseDto> response = accountLogService.getCalender(email, datetime);
-        return response;
-    }
+ResponseEntity<? super GetCalenderResponseDto> getCalender(
+        @AuthenticationPrincipal String email,
+        @RequestParam("datetime") String datetime // RequestParam으로 날짜 받기
+) {
+    ResponseEntity<? super GetCalenderResponseDto> response = accountLogService.getCalender(email, datetime);
+    return response;
+}
+
 }
